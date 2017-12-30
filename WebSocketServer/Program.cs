@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebSocketServer
+﻿namespace WebSocketServer
 {
     class Program
     {
         static void Main(string[] args)
         {
+            var server = new Server("localhost", 8181);
+            server.Start();
         }
     }
 }
