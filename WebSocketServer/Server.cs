@@ -25,7 +25,6 @@ namespace WebSocketServer
             WSServer = new Fleck2.WebSocketServer($"ws://{Hostname}:{Port}");
             WSServer.Start(socket =>
             {
-                socket.OnOpen = () => OnOpen(socket);
                 socket.OnClose = () => OnClose(socket);
                 socket.OnMessage = message => OnMessage(socket, message);
             });
@@ -35,14 +34,27 @@ namespace WebSocketServer
             }
         }
 
-        private void DisconnectSocket(IWebSocketConnection socket, string userName)
+        private string BuildMessage<T>(string type, T payload)
         {
+            return JsonConvert.SerializeObject(
+                new WebSocketMessage<T>()
+                {
+                    Type = type,
+                    Payload = payload
+                }
+            );
+        }
+
+        private void DisconnectSocket(IWebSocketConnection socket, string webSocketMessage)
+        {
+            var data = JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
             var chatMessage = new ChatMessage()
             {
-                UserName = userName,
-                Message = "Error: the user name <" + userName + "> is already in use!"
+                UserName = data.Payload.UserName,
+                Message = "Error: the user name <" + data.Payload.UserName + "> is already in use!"
             };
-            socket.Send(JsonConvert.SerializeObject(chatMessage));
+
+            socket.Send(BuildMessage(ChatMessage.Type, chatMessage));
             socket.Close();
             if (ConnectedSockets.ContainsKey(socket))
             {
@@ -52,45 +64,57 @@ namespace WebSocketServer
 
         private void OnClose(IWebSocketConnection socket)
         {
-            Console.WriteLine("Close! $$$$$");
-            ConnectedSockets.Remove(socket);
+            if (ConnectedSockets.ContainsKey(socket))
+            {
+                var chatMessage = new ChatMessage()
+                {
+                    UserName = ConnectedSockets[socket],
+                    Message = "has left from chat!"
+                };
+                SendMessage(socket, BuildMessage(ChatMessage.Type, chatMessage));
+                ConnectedSockets.Remove(socket);
+            }
         }
 
-        private void OnMessage(IWebSocketConnection socket, string message)
+        private void OnMessage(IWebSocketConnection socket, string webSocketMessage)
         {
             if (ConnectedSockets.ContainsKey(socket))
             {
-                SendMessage(socket, message);
+                SendMessage(socket, webSocketMessage);
             }
             else
             {
-                if (ConnectedSockets.ContainsValue(message))
+                if (ConnectedSockets.ContainsValue(webSocketMessage))
                 {
-                    DisconnectSocket(socket, message);
+                    DisconnectSocket(socket, webSocketMessage);
                 }
                 else
                 {
-                    ConnectedSockets.Add(socket, message);
+                    var data = JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
+                    ConnectedSockets.Add(socket, data.Payload.UserName);
+
+                    var chatMessage = new ChatMessage()
+                    {
+                        UserName = data.Payload.UserName,
+                        Message = "has joined the chat!"
+                    };
+                    SendMessage(socket, BuildMessage(ChatMessage.Type, chatMessage));
                 }
             }
         }
 
-        private void OnOpen(IWebSocketConnection socket)
+        private void SendMessage(IWebSocketConnection socket, string webSocketMessage)
         {
-            Console.WriteLine("Open! $$$$");
-        }
-
-        private void SendMessage(IWebSocketConnection socket, string message)
-        {
+            var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
             var chatMessage = new ChatMessage()
             {
                 UserName = ConnectedSockets[socket],
-                Message = message
+                Message = data.Payload.Message
             };
 
             foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
             {
-                client.Key.Send(JsonConvert.SerializeObject(chatMessage));
+                client.Key.Send(BuildMessage(ChatMessage.Type, chatMessage));
             }
         }
     }
