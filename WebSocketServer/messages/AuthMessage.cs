@@ -1,12 +1,12 @@
 ﻿namespace WebSocketServer
 {
-    public class AuthMessage
+    public class AuthMessage : IMessage
     {
-        public enum StatusCode { ERROR, SUCCESS }
-
-        public static readonly string Type = "AUTH_MESSAGE";
+        public const string MessageType = "AUTH_MESSAGE";
         public string Message { get; set; }
-        public string UserName { get; set; }
         public StatusCode Status { get; set; }
+        public string Type { get { return MessageType; } }
+        public string UserName { get; set; }
+        public enum StatusCode { ERROR, SUCCESS }
     }
 }

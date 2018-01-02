@@ -60,8 +60,7 @@ namespace WebSocketServer.Tests
         [Test, Order(1)]
         public void Test_Authorization_Success()
         {
-            var expected = MyServer.BuildMessage(
-                AuthMessage.Type,
+            var expected = WebSocketMessage<AuthMessage>.BuildMessage(
                 new AuthMessage()
                 {
                     UserName = "admin2018",
@@ -69,8 +68,7 @@ namespace WebSocketServer.Tests
                 }
             );
             MyClient.Send(
-                MyServer.BuildMessage(
-                    AuthMessage.Type,
+                WebSocketMessage<AuthMessage>.BuildMessage(
                     new AuthMessage()
                     {
                         UserName = "admin2018"
@@ -99,8 +97,7 @@ namespace WebSocketServer.Tests
             anotherClient.Open();
             Thread.Sleep(3000);
 
-            var expected = MyServer.BuildMessage(
-                AuthMessage.Type,
+            var expected = WebSocketMessage<AuthMessage>.BuildMessage(
                 new AuthMessage()
                 {
                     Message = "Error: the user name <admin2018> is already in use!",
@@ -109,8 +106,7 @@ namespace WebSocketServer.Tests
                 }
             );
             anotherClient.Send(
-                MyServer.BuildMessage(
-                    AuthMessage.Type,
+                WebSocketMessage<AuthMessage>.BuildMessage(
                     new AuthMessage()
                     {
                         UserName = "admin2018"
