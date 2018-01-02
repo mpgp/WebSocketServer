@@ -1,6 +1,6 @@
 ﻿namespace WebSocketServer
 {
-    public class ChatMessage : IMessage
+    public class ChatMessage : BaseMessage
     {
         public const string Type = "CHAT_MESSAGE";
         public string Message { get; set; }

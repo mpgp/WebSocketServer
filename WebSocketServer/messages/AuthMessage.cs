@@ -1,6 +1,6 @@
 ﻿namespace WebSocketServer
 {
-    public class AuthMessage : IMessage
+    public class AuthMessage : BaseMessage
     {
         public const string Type = "AUTH_MESSAGE";
         public string Message { get; set; }
