@@ -8,30 +8,37 @@ namespace WebSocketServer
     public class Server
     {
         private Dictionary<IWebSocketConnection, string> ConnectedSockets { get; set; }
-        private string Hostname { get; set; }
-        private int Port { get; set; }
+        private string Hostname { get; }
+        private int Port { get; }
+        private string Protocol { get; }
         private Fleck2.WebSocketServer WSServer { get; set; }
 
-        public Server(string hostname, int port)
+        public Server(string hostname, int port, string protocol = "ws")
         {
             Hostname = hostname;
             Port = port;
+            Protocol = protocol;
         }
 
-        public void Start()
+        public void ListenMessages()
+        {
+            while (Console.ReadLine() != "exit")
+            {
+            }
+        }
+
+        public Server Start()
         {
             Fleck2.FleckLog.Level = Fleck2.LogLevel.Debug;
             ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
-            WSServer = new Fleck2.WebSocketServer($"ws://{Hostname}:{Port}");
+            WSServer = new Fleck2.WebSocketServer($"{Protocol}://{Hostname}:{Port}");
             WSServer.Start(socket =>
             {
                 socket.OnClose = () => OnClose(socket);
                 socket.OnMessage = message => OnMessage(socket, message);
             });
 
-            while (Console.ReadLine() != "exit")
-            {
-            }
+            return this;
         }
 
         private string BuildMessage<T>(string type, T payload)
