@@ -11,10 +11,11 @@
             (
                 new WebSocketMessage<T>()
                 {
-                    Type = message.Type,
+                    Type = message.ToString(),
                     Payload = message
                 }
             );
         }
+
     }
 }

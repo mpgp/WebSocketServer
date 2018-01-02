@@ -1,7 +1,8 @@
 ﻿namespace WebSocketServer
 {
-    public interface IMessage
+    public abstract class IMessage
     {
-        string Type { get; }
+        public override string ToString() { return MessageType; }
+        protected abstract string MessageType { get; }
     }
 }
