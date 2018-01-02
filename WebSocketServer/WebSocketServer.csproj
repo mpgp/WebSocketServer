@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServer.cs" />
     <Compile Include="messages\ChatMessage.cs" />
     <Compile Include="messages\AuthMessage.cs" />
     <Compile Include="messages\WebSocketMessage.cs" />

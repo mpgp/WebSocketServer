@@ -14,7 +14,7 @@ namespace WebSocketServer.Tests
 
         string ResponseFromMyServer { get; set; }
         string PreviousResponseFromMyServer { get; set; }
-        Server MyServer { get; set; }
+        IServer MyServer { get; set; }
         WebSocket4Net.WebSocket MyClient { get; set; }
 
         private void OnReceiveMessageFromServer(object sender, WebSocket4Net.MessageReceivedEventArgs args)

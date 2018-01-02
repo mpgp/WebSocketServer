@@ -16,7 +16,7 @@ namespace WebSocketServer
             }
         }
 
-        public static Server StartServer(string[] args)
+        public static IServer StartServer(string[] args)
         {
             if (args.Length < 3 || args.Length > 3)
             {

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace WebSocketServer
 {
-    public class Server
+    public class Server : IServer
     {
         private Dictionary<IWebSocketConnection, string> ConnectedSockets { get; set; }
         private string Hostname { get; }
@@ -18,27 +18,6 @@ namespace WebSocketServer
             Hostname = hostname;
             Port = port;
             Protocol = protocol;
-        }
-
-        public void ListenMessages()
-        {
-            while (Console.ReadLine() != "exit")
-            {
-            }
-        }
-
-        public Server Start()
-        {
-            Fleck2.FleckLog.Level = Fleck2.LogLevel.Debug;
-            ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
-            WSServer = new Fleck2.WebSocketServer($"{Protocol}://{Hostname}:{Port}");
-            WSServer.Start(socket =>
-            {
-                socket.OnClose = () => OnClose(socket);
-                socket.OnMessage = message => OnMessage(socket, message);
-            });
-
-            return this;
         }
 
         public void Authorize(IWebSocketConnection socket, string webSocketMessage)
@@ -72,6 +51,13 @@ namespace WebSocketServer
             );
         }
 
+        public void ListenMessages()
+        {
+            while (Console.ReadLine() != "exit")
+            {
+            }
+        }
+
         public void SendMessage(IWebSocketConnection socket, string webSocketMessage)
         {
             try
@@ -93,6 +79,20 @@ namespace WebSocketServer
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public IServer Start()
+        {
+            Fleck2.FleckLog.Level = Fleck2.LogLevel.Debug;
+            ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
+            WSServer = new Fleck2.WebSocketServer($"{Protocol}://{Hostname}:{Port}");
+            WSServer.Start(socket =>
+            {
+                socket.OnClose = () => OnClose(socket);
+                socket.OnMessage = message => OnMessage(socket, message);
+            });
+
+            return this;
         }
 
         private void ConnectSocket(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data)
