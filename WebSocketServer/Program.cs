@@ -6,6 +6,9 @@ namespace WebSocketServer
     {
         public static void Main(string[] args)
         {
+#if DEBUG
+            args = new[] { "localhost", "8181", "ws" };
+#endif
             try
             {
                 StartServer(args).ListenMessages();
