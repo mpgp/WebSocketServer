@@ -48,12 +48,12 @@ namespace WebSocketServer.Tests
         /// <summary>
         /// Запуск программы с тремя параметрами: localhost 8118 ws
         /// </summary>
-        /*[Test]
+        [Test]
         public void StartServer_localhost__8181__ws_expectNoThrows()
         {
             string[] args = new string[] { "localhost", "8181", "ws" };
             Assert.That(() => Program.StartServer(args), Throws.Nothing);
-        }*/
+        }
 
         /// <summary>
         /// Запуск программы с тремя параметрами: localhost NaN ws

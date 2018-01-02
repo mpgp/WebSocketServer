@@ -8,7 +8,7 @@ namespace WebSocketServer
         {
             try
             {
-                StartServer(args);
+                StartServer(args).ListenMessages();
             }
             catch (Exception e)
             {
@@ -16,7 +16,7 @@ namespace WebSocketServer
             }
         }
 
-        public static void StartServer(string[] args)
+        public static Server StartServer(string[] args)
         {
             if (args.Length < 3 || args.Length > 3)
             {
@@ -28,7 +28,7 @@ namespace WebSocketServer
             string protocol = args[2];
 
             var server = new Server(hostname, port, protocol);
-            server.Start().ListenMessages();
+            return server.Start();
         }
     }
 }
