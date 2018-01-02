@@ -41,6 +41,26 @@ namespace WebSocketServer
             return this;
         }
 
+        private void Authorize(IWebSocketConnection socket, string webSocketMessage)
+        {
+            try
+            {
+                var data = JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
+                if (ConnectedSockets.ContainsValue(data.Payload.UserName))
+                {
+                    DisconnectSocket(socket, data);
+                }
+                else
+                {
+                    ConnectSocket(socket, data);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
         private string BuildMessage<T>(string type, T payload)
         {
             return JsonConvert.SerializeObject(
@@ -110,31 +130,29 @@ namespace WebSocketServer
             }
             else
             {
-                var data = JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
-
-                if (ConnectedSockets.ContainsValue(data.Payload.UserName))
-                {
-                    DisconnectSocket(socket, data);
-                }
-                else
-                {
-                    ConnectSocket(socket, data);
-                }
+                Authorize(socket, webSocketMessage);
             }
         }
 
         private void SendMessage(IWebSocketConnection socket, string webSocketMessage)
         {
-            var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
-            var chatMessage = new ChatMessage()
+            try
             {
-                UserName = ConnectedSockets[socket],
-                Message = data.Payload.Message
-            };
+                var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
+                var chatMessage = new ChatMessage()
+                {
+                    UserName = ConnectedSockets[socket],
+                    Message = data.Payload.Message
+                };
 
-            foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
+                foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
+                {
+                    client.Key.Send(BuildMessage(ChatMessage.Type, chatMessage));
+                }
+            }
+            catch(Exception e)
             {
-                client.Key.Send(BuildMessage(ChatMessage.Type, chatMessage));
+                Console.WriteLine(e.ToString());
             }
         }
     }
