@@ -41,7 +41,7 @@ namespace WebSocketServer
             return this;
         }
 
-        private void Authorize(IWebSocketConnection socket, string webSocketMessage)
+        public void Authorize(IWebSocketConnection socket, string webSocketMessage)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace WebSocketServer
             }
         }
 
-        private string BuildMessage<T>(string type, T payload)
+        public string BuildMessage<T>(string type, T payload)
         {
             return JsonConvert.SerializeObject(
                 new WebSocketMessage<T>()
@@ -70,6 +70,29 @@ namespace WebSocketServer
                     Payload = payload
                 }
             );
+        }
+
+        public void SendMessage(IWebSocketConnection socket, string webSocketMessage)
+        {
+            try
+            {
+                var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
+                var chatMessage = new ChatMessage()
+                {
+                    UserName = ConnectedSockets[socket],
+                    Message = data.Payload.Message
+                };
+
+                var message = BuildMessage(ChatMessage.Type, chatMessage);
+                foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
+                {
+                    client.Key.Send(message);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         private void ConnectSocket(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data)
@@ -131,28 +154,6 @@ namespace WebSocketServer
             else
             {
                 Authorize(socket, webSocketMessage);
-            }
-        }
-
-        private void SendMessage(IWebSocketConnection socket, string webSocketMessage)
-        {
-            try
-            {
-                var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
-                var chatMessage = new ChatMessage()
-                {
-                    UserName = ConnectedSockets[socket],
-                    Message = data.Payload.Message
-                };
-
-                foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
-                {
-                    client.Key.Send(BuildMessage(ChatMessage.Type, chatMessage));
-                }
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
             }
         }
     }

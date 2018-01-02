@@ -38,9 +38,9 @@ namespace WebSocketServer.Tests
         /// Запуск программы с двумя параметрами: localhost 8118
         /// </summary>
         [Test]
-        public void StartServer_localhost__8181_expectArgumentException()
+        public void StartServer_localhost__8118_expectArgumentException()
         {
-            string[] args = new string[] { "localhost", "8181" };
+            string[] args = new string[] { "localhost", "8118" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -49,9 +49,9 @@ namespace WebSocketServer.Tests
         /// Запуск программы с тремя параметрами: localhost 8118 ws
         /// </summary>
         [Test]
-        public void StartServer_localhost__8181__ws_expectNoThrows()
+        public void StartServer_localhost__8118__ws_expectNoThrows()
         {
-            string[] args = new string[] { "localhost", "8181", "ws" };
+            string[] args = new string[] { "localhost", "8118", "ws" };
             Assert.That(() => Program.StartServer(args), Throws.Nothing);
         }
 
@@ -61,7 +61,7 @@ namespace WebSocketServer.Tests
         [Test]
         public void StartServer_localhost__NaN__ws_expectFormatException()
         {
-            string[] args = new string[] { "localhost", "NaN", "8181" };
+            string[] args = new string[] { "localhost", "NaN", "ws" };
             var ex = Assert.Throws<FormatException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Входная строка имела неверный формат."));
         }
