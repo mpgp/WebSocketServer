@@ -1,12 +1,19 @@
 # WebSocketServer
-Формат данных:
+### Запуск
+```
+WebSocketServer.exe <hostname> <port> <protocol>
+```
+```
+WebSocketServer.exe localhost 8181 ws
+```
+### Формат данных - JSON:
 ```TypeScript
 interface WebSocketMessage<T> {
     Type: string;
     Payload: T;
 }
 ```
-Список доступных Payload:
+### Список доступных Payload:
 1. Авторизация (AUTH_MESSAGE)
 ```TypeScript
 interface AuthMessage {
