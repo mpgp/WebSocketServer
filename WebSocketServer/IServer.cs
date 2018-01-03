@@ -11,6 +11,7 @@ namespace WebSocketServer
 {
     using Fleck2.Interfaces;
     using WebSocketServer.Messages;
+    using WebSocketServer.Messages.Payloads;
 
     /// <summary>
     /// The Server interface.

@@ -11,6 +11,9 @@ namespace WebSocketServer
 {
     using System;
 
+    using WebSocketServer.Messages;
+    using WebSocketServer.Messages.Payloads;
+
     /// <summary>
     /// The program.
     /// </summary>

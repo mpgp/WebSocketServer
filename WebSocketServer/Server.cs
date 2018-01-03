@@ -15,6 +15,7 @@ namespace WebSocketServer
     using Fleck2.Interfaces;
     using Newtonsoft.Json;
     using WebSocketServer.Messages;
+    using WebSocketServer.Messages.Payloads;
 
     /// <inheritdoc />
     /// <summary>

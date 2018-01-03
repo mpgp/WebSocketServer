@@ -9,6 +9,8 @@
 
 namespace WebSocketServer.Messages
 {
+    using WebSocketServer.Messages.Payloads;
+
     /// <summary>
     /// The web socket message.
     /// </summary>
