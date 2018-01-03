@@ -10,9 +10,6 @@
 namespace WebSocketServer.Messages.Payloads
 {
     /// <inheritdoc />
-    /// <summary>
-    /// The chat message.
-    /// </summary>
     public class ChatMessage : BaseMessage
     {
         /// <summary>
@@ -36,9 +33,6 @@ namespace WebSocketServer.Messages.Payloads
         public string UserName { get; set; }
 
         /// <inheritdoc />
-        /// <summary>
-        /// Gets the message type.
-        /// </summary>
         protected override string MessageType => Type;
     }
 }

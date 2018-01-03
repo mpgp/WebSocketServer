@@ -9,8 +9,8 @@
 
 namespace WebSocketServer
 {
-    using WebSocketServer.Messages;
-    using WebSocketServer.Messages.Payloads;
+    using Messages;
+    using Messages.Payloads;
 
     /// <summary>
     /// The helper.

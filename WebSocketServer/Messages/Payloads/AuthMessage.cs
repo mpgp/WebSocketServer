@@ -3,16 +3,13 @@
 //   Multiplayer Game Platform
 // </copyright>
 // <summary>
-//   Данные для авторизации
+//   Данные для авторизации.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace WebSocketServer.Messages.Payloads
 {
     /// <inheritdoc />
-    /// <summary>
-    /// Данные для авторизации
-    /// </summary>
     public partial class AuthMessage : BaseMessage
     {
         /// <summary>
@@ -36,9 +33,6 @@ namespace WebSocketServer.Messages.Payloads
         public string UserName { get; set; }
 
         /// <inheritdoc />
-        /// <summary>
-        /// Gets the message type.
-        /// </summary>
         protected override string MessageType => Type;
     }
 }

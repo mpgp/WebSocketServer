@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="InvalidHandler.cs" company="mpgp">
+// <copyright file="UsersListHandler.cs" company="mpgp">
 //   Multiplayer Game Platform
 // </copyright>
 // <summary>
-//   Defines the InvalidHandler type.
+//   Defines the UsersListHandler type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace WebSocketServer.Messages.Handlers
 {
     /// <inheritdoc />
-    public class InvalidHandler : IHandler
+    public class UsersListHandler : IHandler
     {
         /// <inheritdoc />
-        public string Target => string.Empty;
+        public string Target => Payloads.UsersListMessage.Type;
 
         /// <inheritdoc />
         public void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)

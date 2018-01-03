@@ -50,6 +50,13 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="IServer.cs" />
+    <Compile Include="Messages\Handlers\UsersListHandler.cs" />
+    <Compile Include="Messages\Payloads\UsersListMessage.cs" />
+    <Compile Include="Messages\Successor.cs" />
+    <Compile Include="Messages\Handlers\AuthHandler.cs" />
+    <Compile Include="Messages\Handlers\IHandler.cs" />
+    <Compile Include="Messages\Handlers\ChatHandler.cs" />
+    <Compile Include="Messages\Handlers\InvalidHandler.cs" />
     <Compile Include="Messages\Payloads\AuthMessage.StatusCode.cs" />
     <Compile Include="Messages\Payloads\BaseMessage.cs" />
     <Compile Include="Messages\Payloads\ChatMessage.cs" />
@@ -63,8 +70,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\Handlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
