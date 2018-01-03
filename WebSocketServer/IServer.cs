@@ -9,8 +9,7 @@
 
 namespace WebSocketServer
 {
-    using Fleck2.Interfaces;
-    using WebSocketServer.Messages;
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <summary>
     /// The Server interface.
@@ -18,31 +17,14 @@ namespace WebSocketServer
     public interface IServer
     {
         /// <summary>
-        /// The authorize.
+        /// Gets or sets the connected sockets.
         /// </summary>
-        /// <param name="socket">
-        /// The socket.
-        /// </param>
-        /// <param name="webSocketMessage">
-        /// The web socket message.
-        /// </param>
-        void Authorize(IWebSocketConnection socket, WebSocketMessage<AuthMessage> webSocketMessage);
+        System.Collections.Generic.Dictionary<IWebSocketConnection, string> ConnectedSockets { get; set; }
 
         /// <summary>
         /// The listen messages.
         /// </summary>
         void ListenMessages();
-
-        /// <summary>
-        /// The send message.
-        /// </summary>
-        /// <param name="socket">
-        /// The socket.
-        /// </param>
-        /// <param name="webSocketMessage">
-        /// The web socket message.
-        /// </param>
-        void SendMessage(IWebSocketConnection socket, WebSocketMessage<ChatMessage> webSocketMessage);
 
         /// <summary>
         /// The start.

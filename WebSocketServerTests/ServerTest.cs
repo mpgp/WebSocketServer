@@ -14,7 +14,7 @@ namespace WebSocketServerTests
     using System.Threading;
     using NUnit.Framework;
     using WebSocketServer;
-    using WebSocketServer.Messages;
+    using WebSocketServer.Messages.Payloads;
 
     /// <summary>
     /// The server test.

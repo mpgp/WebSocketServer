@@ -30,4 +30,9 @@ interface ChatMessage {
     Time?: string;
     UserName?: string;
 }
+3. Список пользователей онлайн (USERS_LIST_MESSAGE)
+```TypeScript
+interface ChatMessage {
+    UsersList?: string[];
+}
 ```

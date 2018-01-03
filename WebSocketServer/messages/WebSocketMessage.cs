@@ -13,7 +13,7 @@ namespace WebSocketServer.Messages
     /// The web socket message.
     /// </summary>
     /// <typeparam name="T">Message Payload</typeparam>
-    public class WebSocketMessage<T> where T : BaseMessage
+    public class WebSocketMessage<T> where T : Payloads.BaseMessage
     {
         /// <summary>
         /// Gets or sets the type.

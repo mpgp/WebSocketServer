@@ -9,8 +9,6 @@
 
 namespace WebSocketServer
 {
-    using System;
-
     /// <summary>
     /// The program.
     /// </summary>
@@ -31,9 +29,9 @@ namespace WebSocketServer
             {
                 StartServer(args).ListenMessages();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                Console.WriteLine(e.ToString());
+                System.Console.WriteLine(e.ToString());
             }
         }
 
@@ -46,14 +44,14 @@ namespace WebSocketServer
         /// <returns>
         /// The <see cref="IServer"/>.
         /// </returns>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="System.ArgumentException">
         /// Invalid arguments. Usage: hostname port protocol
         /// </exception>
         public static IServer StartServer(string[] args)
         {
             if (args.Length < 3 || args.Length > 3)
             {
-                throw new ArgumentException("Invalid arguments. Usage: <hostname> <port> <protocol>");
+                throw new System.ArgumentException("Invalid arguments. Usage: <hostname> <port> <protocol>");
             }
 
             var hostname = args[0];
