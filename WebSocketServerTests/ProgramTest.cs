@@ -1,22 +1,29 @@
-﻿using NUnit.Framework;
-using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ProgramTest.cs" company="mpgp">
+//   Multiplayer Game Platform
+// </copyright>
+// <summary>
+//   Defines the ProgramTest type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServer.Tests
+namespace WebSocketServerTests
 {
+    using System;
+    using NUnit.Framework;
+    using WebSocketServer;
+
+    /// <summary>
+    /// The program test.
+    /// </summary>
     [TestFixture]
     public class ProgramTest
     {
-        [Test]
-        public void PassTestMethod()
-        {
-            Assert.Pass("Your first passing test");
-        }
-
         /// <summary>
         /// Запуск программы без параметров
         /// </summary>
         [Test]
-        public void StartServer_WithoutParams_expectArgumentException()
+        public void StartServerWithoutParamsExpectArgumentException()
         {
             string[] args = new string[] { };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
@@ -27,7 +34,7 @@ namespace WebSocketServer.Tests
         /// Запуск программы с одним параметром: localhost
         /// </summary>
         [Test]
-        public void StartServer_localhost_expectArgumentException()
+        public void StartServerLocalhostExpectArgumentException()
         {
             string[] args = new string[] { "localhost" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
@@ -38,7 +45,7 @@ namespace WebSocketServer.Tests
         /// Запуск программы с двумя параметрами: localhost 8118
         /// </summary>
         [Test]
-        public void StartServer_localhost__8118_expectArgumentException()
+        public void StartServerLocalhost8118ExpectArgumentException()
         {
             string[] args = new string[] { "localhost", "8118" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
@@ -49,7 +56,7 @@ namespace WebSocketServer.Tests
         /// Запуск программы с тремя параметрами: localhost 8118 ws
         /// </summary>
         [Test]
-        public void StartServer_localhost__8118__ws_expectNoThrows()
+        public void StartServerLocalhost8118WsExpectNoThrows()
         {
             string[] args = new string[] { "localhost", "8118", "ws" };
             Assert.That(() => Program.StartServer(args), Throws.Nothing);
@@ -59,7 +66,7 @@ namespace WebSocketServer.Tests
         /// Запуск программы с тремя параметрами: localhost NaN ws
         /// </summary>
         [Test]
-        public void StartServer_localhost__NaN__ws_expectFormatException()
+        public void StartServerLocalhostNaNWsExpectFormatException()
         {
             string[] args = new string[] { "localhost", "NaN", "ws" };
             var ex = Assert.Throws<FormatException>(() => { Program.StartServer(args); });
