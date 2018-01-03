@@ -51,10 +51,11 @@
     <Compile Include="Helper.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Messages\Handlers\UsersListHandler.cs" />
+    <Compile Include="Messages\Payloads\InvalidMessage.cs" />
     <Compile Include="Messages\Payloads\UsersListMessage.cs" />
     <Compile Include="Messages\Successor.cs" />
     <Compile Include="Messages\Handlers\AuthHandler.cs" />
-    <Compile Include="Messages\Handlers\IHandler.cs" />
+    <Compile Include="Messages\Handlers\BaseHandler.cs" />
     <Compile Include="Messages\Handlers\ChatHandler.cs" />
     <Compile Include="Messages\Handlers\InvalidHandler.cs" />
     <Compile Include="Messages\Payloads\AuthMessage.StatusCode.cs" />

@@ -10,16 +10,19 @@
 namespace WebSocketServer.Messages.Handlers
 {
     /// <inheritdoc />
-    public class InvalidHandler : IHandler
+    public class InvalidHandler : BaseHandler
     {
         /// <inheritdoc />
-        public string Target => string.Empty;
+        protected override string Target => string.Empty;
 
         /// <inheritdoc />
-        public void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
-            var usersListMessage = new Payloads.UsersListMessage();
-            socket.Send(Helper.BuildMessage(usersListMessage));
+            var invalidMessage = new Payloads.InvalidMessage()
+            {
+                Message = $"Обнаружена ошибка. Предоставьте, пожалуйста, эту информацию разработчикам: '{webSocketMessage}'"
+            };
+            socket.Send(Helper.BuildMessage(invalidMessage));
         }
     }
 }

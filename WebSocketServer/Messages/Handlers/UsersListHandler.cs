@@ -9,16 +9,18 @@
 
 namespace WebSocketServer.Messages.Handlers
 {
+    using System.Linq;
+
     /// <inheritdoc />
-    public class UsersListHandler : IHandler
+    public class UsersListHandler : BaseHandler
     {
         /// <inheritdoc />
-        public string Target => Payloads.UsersListMessage.Type;
+        protected override string Target => Payloads.UsersListMessage.Type;
 
         /// <inheritdoc />
-        public void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
-            var usersListMessage = new Payloads.UsersListMessage();
+            var usersListMessage = new Payloads.UsersListMessage() { UsersList = server.ConnectedSockets.Values.ToArray() };
             socket.Send(Helper.BuildMessage(usersListMessage));
         }
     }

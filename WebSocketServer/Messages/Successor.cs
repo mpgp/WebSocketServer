@@ -23,7 +23,7 @@ namespace WebSocketServer.Messages
         static Successor()
         {
             ChatHandler = new ChatHandler();
-            Handlers = new List<IHandler>()
+            Handlers = new List<BaseHandler>()
                            {
                                // Сортировать желательно по частоте применимости
                                ChatHandler,
@@ -34,21 +34,20 @@ namespace WebSocketServer.Messages
             InvalidHandler = new InvalidHandler();
         }
 
-
         /// <summary>
         /// Gets the chat handler.
         /// </summary>
         public static ChatHandler ChatHandler { get; }
 
         /// <summary>
-        /// Gets the handlers.
-        /// </summary>
-        private static List<IHandler> Handlers { get; }
-
-        /// <summary>
         /// Gets the invalid handler.
         /// </summary>
-        private static IHandler InvalidHandler { get; }
+        public static InvalidHandler InvalidHandler { get; }
+
+        /// <summary>
+        /// Gets the handlers.
+        /// </summary>
+        private static List<BaseHandler> Handlers { get; }
 
         /// <summary>
         /// The handle.
@@ -69,15 +68,13 @@ namespace WebSocketServer.Messages
 
             foreach (var handler in Handlers)
             {
-                if (messageType == handler.Target)
+                if (handler.CanHandle(socket, messageType, server))
                 {
                     handler.Handle(socket, webSocketMessage, server);
-                    System.Console.WriteLine(handler.GetType().ToString());
                     return;
                 }
             }
-
-            System.Console.WriteLine(webSocketMessage);
+            
             InvalidHandler.Handle(socket, webSocketMessage, server);
         }
     }

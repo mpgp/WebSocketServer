@@ -12,13 +12,13 @@ namespace WebSocketServer.Messages.Handlers
     using Payloads;
 
     /// <inheritdoc />
-    public class ChatHandler : IHandler
+    public class ChatHandler : BaseHandler
     {
         /// <inheritdoc />
-        public string Target => ChatMessage.Type;
+        protected override string Target => ChatMessage.Type;
 
         /// <inheritdoc />
-        public void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             try
             {
@@ -29,7 +29,6 @@ namespace WebSocketServer.Messages.Handlers
                                           Message = data.Payload.Message
                                       };
                 this.SendToAll(chatMessage, server);
-
             }
             catch (System.Exception e)
             {

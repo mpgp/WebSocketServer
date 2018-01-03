@@ -13,21 +13,20 @@ namespace WebSocketServer.Messages.Handlers
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
-    public class AuthHandler : IHandler
+    public class AuthHandler : BaseHandler
     {
         /// <inheritdoc />
-        public string Target => AuthMessage.Type;
+        protected override string Target => AuthMessage.Type;
 
         /// <inheritdoc />
-        public void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override bool CanHandle(IWebSocketConnection socket, string messageType, IServer server)
         {
-            if (server.ConnectedSockets.ContainsKey(socket))
-            {
-                // TODO: ERROR
-                System.Console.WriteLine("ERROR!!!!11");
-                return;
-            }
+            return base.CanHandle(socket, messageType, server) && !server.ConnectedSockets.ContainsKey(socket);
+        }
 
+        /// <inheritdoc />
+        public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
+        {
             this.Authorize(socket, webSocketMessage, server);
         }
 
