@@ -20,11 +20,10 @@ namespace WebSocketServer
             Protocol = protocol;
         }
 
-        public void Authorize(IWebSocketConnection socket, string webSocketMessage)
+        public void Authorize(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data)
         {
             try
             {
-                var data = JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
                 if (ConnectedSockets.ContainsValue(data.Payload.UserName))
                 {
                     DisconnectSocket(socket, data);
@@ -47,18 +46,17 @@ namespace WebSocketServer
             }
         }
 
-        public void SendMessage(IWebSocketConnection socket, string webSocketMessage)
+        public void SendMessage(IWebSocketConnection socket, WebSocketMessage<ChatMessage> data)
         {
             try
             {
-                var data = JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
                 var chatMessage = new ChatMessage()
                 {
                     UserName = ConnectedSockets[socket],
                     Message = data.Payload.Message
                 };
 
-                var message = WebSocketMessage<ChatMessage>.BuildMessage(chatMessage);
+                var message = WebSocketMessage.BuildMessage(chatMessage);
                 foreach (KeyValuePair<IWebSocketConnection, string> client in ConnectedSockets)
                 {
                     client.Key.Send(message);
@@ -93,14 +91,14 @@ namespace WebSocketServer
                 UserName = data.Payload.UserName,
                 Status = AuthMessage.StatusCode.SUCCESS
             };
-            socket.Send(WebSocketMessage<AuthMessage>.BuildMessage(authMessage));
+            socket.Send(WebSocketMessage.BuildMessage(authMessage));
 
             var chatMessage = new ChatMessage()
             {
                 UserName = data.Payload.UserName,
                 Message = "has joined the chat!"
             };
-            SendMessage(socket, WebSocketMessage<ChatMessage>.BuildMessage(chatMessage));
+            SendMessage(socket, WebSocketMessage.BuildMessage(chatMessage));
         }
 
         private void DisconnectSocket(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data)
@@ -111,7 +109,7 @@ namespace WebSocketServer
                 Message = "Error: the user name <" + data.Payload.UserName + "> is already in use!",
                 Status = AuthMessage.StatusCode.ERROR
             };
-            socket.Send(WebSocketMessage<AuthMessage>.BuildMessage(authMessage));
+            socket.Send(WebSocketMessage.BuildMessage(authMessage));
 
             socket.Close();
             if (ConnectedSockets.ContainsKey(socket))
@@ -129,7 +127,7 @@ namespace WebSocketServer
                     UserName = ConnectedSockets[socket],
                     Message = "has left from chat!"
                 };
-                SendMessage(socket, WebSocketMessage<ChatMessage>.BuildMessage(chatMessage));
+                SendMessage(socket, WebSocketMessage.BuildMessage(chatMessage));
                 ConnectedSockets.Remove(socket);
             }
         }
@@ -138,11 +136,11 @@ namespace WebSocketServer
         {
             if (ConnectedSockets.ContainsKey(socket))
             {
-                SendMessage(socket, webSocketMessage);
+                SendMessage(socket, JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage));
             }
             else
             {
-                Authorize(socket, webSocketMessage);
+                Authorize(socket, JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage));
             }
         }
     }

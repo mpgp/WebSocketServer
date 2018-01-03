@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="messages\BaseMessage.cs" />
     <Compile Include="messages\ChatMessage.cs" />

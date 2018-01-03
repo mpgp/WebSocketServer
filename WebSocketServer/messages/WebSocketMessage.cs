@@ -4,17 +4,17 @@
     {
         public string Type { get; set; }
         public T Payload { get; set; }
+    }
 
-        public static string BuildMessage(T message)
+    public class WebSocketMessage
+    {
+        public static WebSocketMessage<T> BuildMessage<T>(T message) where T : BaseMessage
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject
-            (
-                new WebSocketMessage<T>()
-                {
-                    Type = message.ToString(),
-                    Payload = message
-                }
-            );
+            return new WebSocketMessage<T>()
+            {
+                Type = message.ToString(),
+                Payload = message
+            };
         }
 
     }

@@ -4,9 +4,9 @@ namespace WebSocketServer
 {
     public interface IServer
     {
-        void Authorize(IWebSocketConnection socket, string webSocketMessage);
+        void Authorize(IWebSocketConnection socket, WebSocketMessage<AuthMessage> webSocketMessage);
         void ListenMessages();
-        void SendMessage(IWebSocketConnection socket, string webSocketMessage);
+        void SendMessage(IWebSocketConnection socket, WebSocketMessage<ChatMessage> webSocketMessage);
         IServer Start();
     }
 }

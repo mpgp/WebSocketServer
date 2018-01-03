@@ -60,19 +60,23 @@ namespace WebSocketServer.Tests
         [Test, Order(1)]
         public void Test_Authorization_Success()
         {
-            var expected = WebSocketMessage<AuthMessage>.BuildMessage(
-                new AuthMessage()
-                {
-                    UserName = "admin2018",
-                    Status = AuthMessage.StatusCode.SUCCESS
-                }
-            );
-            MyClient.Send(
-                WebSocketMessage<AuthMessage>.BuildMessage(
+            var expected = Helper.Serialize(
+                WebSocketMessage.BuildMessage(
                     new AuthMessage()
                     {
-                        UserName = "admin2018"
+                        UserName = "admin2018",
+                        Status = AuthMessage.StatusCode.SUCCESS
                     }
+                )
+            );
+            MyClient.Send(
+                Helper.Serialize(
+                    WebSocketMessage.BuildMessage(
+                        new AuthMessage()
+                        {
+                            UserName = "admin2018"
+                        }
+                    )
                 )
             );
 
@@ -97,20 +101,24 @@ namespace WebSocketServer.Tests
             anotherClient.Open();
             Thread.Sleep(3000);
 
-            var expected = WebSocketMessage<AuthMessage>.BuildMessage(
-                new AuthMessage()
-                {
-                    Message = "Error: the user name <admin2018> is already in use!",
-                    UserName = "admin2018",
-                    Status = AuthMessage.StatusCode.ERROR
-                }
-            );
-            anotherClient.Send(
-                WebSocketMessage<AuthMessage>.BuildMessage(
+            var expected = Helper.Serialize(
+                WebSocketMessage.BuildMessage(
                     new AuthMessage()
                     {
-                        UserName = "admin2018"
+                        Message = "Error: the user name <admin2018> is already in use!",
+                        UserName = "admin2018",
+                        Status = AuthMessage.StatusCode.ERROR
                     }
+                )
+            );
+            anotherClient.Send(
+                Helper.Serialize(
+                    WebSocketMessage.BuildMessage(
+                        new AuthMessage()
+                        {
+                            UserName = "admin2018"
+                        }
+                    )
                 )
             );
 
