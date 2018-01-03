@@ -101,9 +101,7 @@ namespace WebSocketServer
                     Message = "has left from chat!"
                 };
 
-                // TODO: uncomment this!
-                // this.SendMessage(socket, Helper.BuildMessage(chatMessage));
-                // Successor.ChatHandler.SendToAll();
+                Successor.ChatHandler.SendToAll(chatMessage, this);
                 this.ConnectedSockets.Remove(socket);
             }
         }

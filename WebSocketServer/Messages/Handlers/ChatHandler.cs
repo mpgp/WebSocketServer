@@ -28,16 +28,30 @@ namespace WebSocketServer.Messages.Handlers
                                           UserName = server.ConnectedSockets[socket],
                                           Message = data.Payload.Message
                                       };
+                this.SendToAll(chatMessage, server);
 
-                var message = Helper.BuildMessage(chatMessage);
-                foreach (var client in server.ConnectedSockets)
-                {
-                    client.Key.Send(message);
-                }
             }
             catch (System.Exception e)
             {
                 System.Console.WriteLine(e.ToString());
+            }
+        }
+
+        /// <summary>
+        /// The send to all.
+        /// </summary>
+        /// <param name="chatMessage">
+        /// The chat message.
+        /// </param>
+        /// <param name="server">
+        /// The server.
+        /// </param>
+        public void SendToAll(ChatMessage chatMessage, IServer server)
+        {
+            var message = Helper.BuildMessage(chatMessage);
+            foreach (var client in server.ConnectedSockets)
+            {
+                client.Key.Send(message);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace WebSocketServer.Messages.Payloads
 {
     /// <inheritdoc />
     /// <summary>
-    /// Данные для авторизации
+    /// Список пользователей онлайн.
     /// </summary>
     public class UsersListMessage : BaseMessage
     {

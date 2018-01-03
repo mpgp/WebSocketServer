@@ -86,13 +86,12 @@ namespace WebSocketServer.Messages.Handlers
                                   };
             socket.Send(Helper.BuildMessage(authMessage));
 
-            // TODO: uncomment this!
-            /*var chatMessage = new ChatMessage()
+            var chatMessage = new ChatMessage()
                                   {
                                       UserName = data.Payload.UserName,
                                       Message = "has joined the chat!"
                                   };
-            this.SendMessage(socket, Helper.BuildMessage(chatMessage));*/
+            Successor.ChatHandler.SendToAll(chatMessage, server);
         }
 
         /// <summary>
