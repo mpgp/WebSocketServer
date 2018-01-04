@@ -9,6 +9,8 @@
 
 namespace WebSocketServer.Messages.Handlers
 {
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
+    
     /// <inheritdoc />
     public class InvalidHandler : BaseHandler
     {
@@ -16,11 +18,12 @@ namespace WebSocketServer.Messages.Handlers
         protected override string Target => string.Empty;
 
         /// <inheritdoc />
-        public override void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             var invalidMessage = new Payloads.InvalidMessage()
             {
-                Message = $"Обнаружена ошибка. Предоставьте, пожалуйста, эту информацию разработчикам: '{webSocketMessage}'"
+                Message = "Обнаружена ошибка. Предоставьте, пожалуйста, эту информацию разработчикам: "
+                    + webSocketMessage
             };
             socket.Send(Helper.BuildMessage(invalidMessage));
         }

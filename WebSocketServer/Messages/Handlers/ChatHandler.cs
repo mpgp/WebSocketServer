@@ -10,6 +10,7 @@
 namespace WebSocketServer.Messages.Handlers
 {
     using Payloads;
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
     public class ChatHandler : BaseHandler
@@ -18,17 +19,18 @@ namespace WebSocketServer.Messages.Handlers
         protected override string Target => ChatMessage.Type;
 
         /// <inheritdoc />
-        public override void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             try
             {
-                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
+                var data =
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
                 var chatMessage = new ChatMessage()
-                                      {
-                                          UserName = server.ConnectedSockets[socket],
-                                          Message = data.Payload.Message
-                                      };
-                this.SendToAll(chatMessage, server);
+                {
+                    UserName = server.ConnectedSockets[socket],
+                    Message = data.Payload.Message
+                };
+                SendToAll(chatMessage, server);
             }
             catch (System.Exception e)
             {

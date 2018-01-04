@@ -62,9 +62,9 @@ namespace WebSocketServerTests
             new Server(Hostname, Port, Protocol).Start();
             Thread.Sleep(1000);
 
-            this.MyClient = new WebSocket4Net.WebSocket($"{Protocol}://{Hostname}:{Port}");
-            this.MyClient.MessageReceived += this.OnReceiveMessageFromServer;
-            this.MyClient.Open();
+            MyClient = new WebSocket4Net.WebSocket($"{Protocol}://{Hostname}:{Port}");
+            MyClient.MessageReceived += OnReceiveMessageFromServer;
+            MyClient.Open();
             Thread.Sleep(3000);
         }
 
@@ -74,8 +74,8 @@ namespace WebSocketServerTests
         [SetUp]
         public void RunBeforeEach()
         {
-            this.PreviousResponseFromMyServer = null;
-            this.ResponseFromMyServer = null;
+            PreviousResponseFromMyServer = null;
+            ResponseFromMyServer = null;
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace WebSocketServerTests
         [Test, Order(1)]
         public void TestAuthorizationSuccess()
         {
-            this.MyClient.Send(Helper.Serialize(Helper.BuildMessage(new AuthMessage() { UserName = "admin2018" })));
+            MyClient.Send(Helper.Serialize(Helper.BuildMessage(new AuthMessage() { UserName = "admin2018" })));
 
-            for (var i = 0; i < 50 && this.ResponseFromMyServer == null; ++i)
+            for (var i = 0; i < 50 && ResponseFromMyServer == null; ++i)
             {
                 Thread.Sleep(100);
             }
@@ -98,8 +98,8 @@ namespace WebSocketServerTests
                             UserName = "admin2018",
                             Status = AuthMessage.StatusCode.Success
                         }));
-            this.Log(expected);
-            var possibleValues = new[] { this.PreviousResponseFromMyServer, this.ResponseFromMyServer };
+            Log(expected);
+            var possibleValues = new[] { PreviousResponseFromMyServer, ResponseFromMyServer };
             Assert.IsTrue(possibleValues.Contains(expected));
         }
 
@@ -110,7 +110,7 @@ namespace WebSocketServerTests
         public void TestAuthorizationError()
         {
             var anotherClient = new WebSocket4Net.WebSocket($"{Protocol}://{Hostname}:{Port}");
-            anotherClient.MessageReceived += this.OnReceiveMessageFromServer;
+            anotherClient.MessageReceived += OnReceiveMessageFromServer;
             anotherClient.Open();
             Thread.Sleep(3000);
 
@@ -122,7 +122,7 @@ namespace WebSocketServerTests
                             UserName = "admin2018"
                         })));
 
-            for (var i = 0; i < 50 && this.ResponseFromMyServer == null; ++i)
+            for (var i = 0; i < 50 && ResponseFromMyServer == null; ++i)
             {
                 Thread.Sleep(100);
             }
@@ -135,8 +135,8 @@ namespace WebSocketServerTests
                             UserName = "admin2018",
                             Status = AuthMessage.StatusCode.Error
                         }));
-            this.Log(expected);
-            Assert.AreEqual(expected, this.ResponseFromMyServer);
+            Log(expected);
+            Assert.AreEqual(expected, ResponseFromMyServer);
         }
         
         /// <summary>
@@ -150,8 +150,8 @@ namespace WebSocketServerTests
         /// </param>
         private void OnReceiveMessageFromServer(object sender, WebSocket4Net.MessageReceivedEventArgs args)
         {
-            this.PreviousResponseFromMyServer = this.ResponseFromMyServer;
-            this.ResponseFromMyServer = args.Message;
+            PreviousResponseFromMyServer = ResponseFromMyServer;
+            ResponseFromMyServer = args.Message;
         }
 
         /// <summary>
@@ -166,11 +166,11 @@ namespace WebSocketServerTests
             Console.WriteLine("expected:" + expected);
             System.Diagnostics.Debug.WriteLine("expected:" + expected);
 
-            Console.WriteLine("PreviousResponseFromMyServer:" + this.PreviousResponseFromMyServer);
-            System.Diagnostics.Debug.WriteLine("PreviousResponseFromMyServer:" + this.PreviousResponseFromMyServer);
+            Console.WriteLine("PreviousResponseFromMyServer:" + PreviousResponseFromMyServer);
+            System.Diagnostics.Debug.WriteLine("PreviousResponseFromMyServer:" + PreviousResponseFromMyServer);
 
-            Console.WriteLine("ResponseFromMyServer:" + this.ResponseFromMyServer);
-            System.Diagnostics.Debug.WriteLine("ResponseFromMyServer:" + this.ResponseFromMyServer);
+            Console.WriteLine("ResponseFromMyServer:" + ResponseFromMyServer);
+            System.Diagnostics.Debug.WriteLine("ResponseFromMyServer:" + ResponseFromMyServer);
         }
     }
 }

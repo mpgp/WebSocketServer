@@ -25,6 +25,6 @@ namespace WebSocketServer.Messages.Payloads
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public override string ToString() => this.MessageType;
+        public override string ToString() => MessageType;
     }
 }

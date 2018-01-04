@@ -27,7 +27,7 @@ namespace WebSocketServer.Messages.Handlers
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
-            this.Authorize(socket, webSocketMessage, server);
+            Authorize(socket, webSocketMessage, server);
         }
 
         /// <summary>
@@ -46,14 +46,15 @@ namespace WebSocketServer.Messages.Handlers
         {
             try
             {
-                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
+                var data = 
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
                 if (server.ConnectedSockets.ContainsValue(data.Payload.UserName))
                 {
-                    this.DisconnectSocket(socket, data, server);
+                    DisconnectSocket(socket, data, server);
                 }
                 else
                 {
-                    this.ConnectSocket(socket, data, server);
+                    ConnectSocket(socket, data, server);
                 }
             }
             catch (System.Exception e)

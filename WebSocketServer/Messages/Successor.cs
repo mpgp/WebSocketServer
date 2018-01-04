@@ -11,6 +11,7 @@ namespace WebSocketServer.Messages
 {
     using System.Collections.Generic;
     using Handlers;
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <summary>
     /// The handlers facade.
@@ -61,7 +62,7 @@ namespace WebSocketServer.Messages
         /// <param name="server">
         /// The server.
         /// </param>
-        public static void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server)
+        public static void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             var messageType = Newtonsoft.Json.JsonConvert
                 .DeserializeObject<WebSocketMessage<Payloads.ChatMessage>>(webSocketMessage).Type;

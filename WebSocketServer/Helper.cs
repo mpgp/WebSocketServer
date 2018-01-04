@@ -11,6 +11,7 @@ namespace WebSocketServer
 {
     using Messages;
     using Messages.Payloads;
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <summary>
     /// The helper.
@@ -46,7 +47,7 @@ namespace WebSocketServer
         /// The message.
         /// </param>
         /// <typeparam name="T">Any type</typeparam>
-        public static void Send<T>(this Fleck2.Interfaces.IWebSocketConnection socket, WebSocketMessage<T> message) where T : BaseMessage
+        public static void Send<T>(this IWebSocketConnection socket, WebSocketMessage<T> message) where T : BaseMessage
         {
             socket.Send(Serialize(message));
         }

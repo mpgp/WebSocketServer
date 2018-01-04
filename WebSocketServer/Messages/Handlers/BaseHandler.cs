@@ -9,6 +9,8 @@
 
 namespace WebSocketServer.Messages.Handlers
 {
+    using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
+    
     /// <summary>
     /// The auth handler.
     /// </summary>
@@ -31,7 +33,7 @@ namespace WebSocketServer.Messages.Handlers
         /// <param name="server">
         /// The server.
         /// </param>
-        public abstract void Handle(Fleck2.Interfaces.IWebSocketConnection socket, string webSocketMessage, IServer server);
+        public abstract void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server);
 
         /// <summary>
         /// The can handle.
@@ -48,9 +50,9 @@ namespace WebSocketServer.Messages.Handlers
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public virtual bool CanHandle(Fleck2.Interfaces.IWebSocketConnection socket, string messageType, IServer server)
+        public virtual bool CanHandle(IWebSocketConnection socket, string messageType, IServer server)
         {
-            return messageType == this.Target;
+            return messageType == Target;
         }
     }
 }

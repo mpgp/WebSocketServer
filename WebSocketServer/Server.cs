@@ -34,9 +34,9 @@ namespace WebSocketServer
         /// </param>
         public Server(string hostname = "localhost", int port = 8181, string protocol = "ws")
         {
-            this.Hostname = hostname;
-            this.Port = port;
-            this.Protocol = protocol;
+            Hostname = hostname;
+            Port = port;
+            Protocol = protocol;
         }
 
         /// <inheritdoc />
@@ -74,11 +74,11 @@ namespace WebSocketServer
         public IServer Start()
         {
             Fleck2.FleckLog.Level = Fleck2.LogLevel.Debug;
-            this.ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
-            this.WsServer = new Fleck2.WebSocketServer($"{this.Protocol}://{this.Hostname}:{this.Port}");
-            this.WsServer.Start(socket =>
+            ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
+            WsServer = new Fleck2.WebSocketServer($"{Protocol}://{Hostname}:{Port}");
+            WsServer.Start(socket =>
             {
-                socket.OnClose = () => this.OnClose(socket);
+                socket.OnClose = () => OnClose(socket);
                 socket.OnMessage = webSocketMessage => Successor.Handle(socket, webSocketMessage, this);
             });
 
@@ -93,16 +93,16 @@ namespace WebSocketServer
         /// </param>
         private void OnClose(IWebSocketConnection socket)
         {
-            if (this.ConnectedSockets.ContainsKey(socket))
+            if (ConnectedSockets.ContainsKey(socket))
             {
                 var chatMessage = new ChatMessage()
                 {
-                    UserName = this.ConnectedSockets[socket],
+                    UserName = ConnectedSockets[socket],
                     Message = "has left from chat!"
                 };
 
                 Successor.ChatHandler.SendToAll(chatMessage, this);
-                this.ConnectedSockets.Remove(socket);
+                ConnectedSockets.Remove(socket);
             }
         }
     }
