@@ -10,6 +10,7 @@
 namespace WebSocketServerTests
 {
     using System;
+    using System.Linq;
     using NUnit.Framework;
     using WebSocketServer;
 
@@ -25,7 +26,7 @@ namespace WebSocketServerTests
         [Test]
         public void StartServerWithoutParamsExpectArgumentException()
         {
-            string[] args = new string[] { };
+            var args = new string[] { };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -36,7 +37,7 @@ namespace WebSocketServerTests
         [Test]
         public void StartServerLocalhostExpectArgumentException()
         {
-            string[] args = new string[] { "localhost" };
+            var args = new [] { "localhost" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -47,7 +48,7 @@ namespace WebSocketServerTests
         [Test]
         public void StartServerLocalhost8118ExpectArgumentException()
         {
-            string[] args = new string[] { "localhost", "8118" };
+            var args = new [] { "localhost", "8118" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -58,7 +59,7 @@ namespace WebSocketServerTests
         [Test]
         public void StartServerLocalhost8118WsExpectNoThrows()
         {
-            string[] args = new string[] { "localhost", "8118", "ws" };
+            var args = new [] { "localhost", "8118", "ws" };
             Assert.That(() => Program.StartServer(args), Throws.Nothing);
         }
 
@@ -68,9 +69,15 @@ namespace WebSocketServerTests
         [Test]
         public void StartServerLocalhostNaNWsExpectFormatException()
         {
-            string[] args = new string[] { "localhost", "NaN", "ws" };
+            var args = new [] { "localhost", "NaN", "ws" };
             var ex = Assert.Throws<FormatException>(() => { Program.StartServer(args); });
-            Assert.That(ex.Message, Is.EqualTo("Входная строка имела неверный формат."));
+            
+            var possibleValues = new[]
+            {
+                "Input string was not in a correct format.",
+                "Входная строка имела неверный формат."
+            };
+            Assert.IsTrue(possibleValues.Contains(ex.Message));
         }
     }
 }
