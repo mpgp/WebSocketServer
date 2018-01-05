@@ -25,7 +25,7 @@ namespace WebSocketServer.Messages.Payloads
         /// <summary>
         /// Gets or sets the time.
         /// </summary>
-        public string Time { get; set; } = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public long Time { get; set; } = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1)).TotalSeconds;
 
         /// <summary>
         /// Gets or sets the user name.
