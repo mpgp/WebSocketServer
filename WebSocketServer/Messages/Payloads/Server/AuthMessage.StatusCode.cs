@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServer.Messages.Payloads
+namespace WebSocketServer.Messages.Payloads.Server
 {
     /// <inheritdoc />
     /// <summary>

@@ -9,14 +9,13 @@
 
 namespace WebSocketServer.Messages.Handlers
 {
-    using Payloads;
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
     public class AuthHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => AuthMessage.Type;
+        protected override string Target => Payloads.Server.AuthMessage.Type;
 
         /// <inheritdoc />
         public override bool CanHandle(IWebSocketConnection socket, string messageType, IServer server)
@@ -46,8 +45,8 @@ namespace WebSocketServer.Messages.Handlers
         {
             try
             {
-                var data = 
-                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<AuthMessage>>(webSocketMessage);
+                var data =
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<Payloads.Client.AuthMessage>>(webSocketMessage);
                 if (server.ConnectedSockets.ContainsValue(data.Payload.UserName))
                 {
                     DisconnectSocket(socket, data, server);
@@ -75,18 +74,18 @@ namespace WebSocketServer.Messages.Handlers
         /// <param name="server">
         /// The server.
         /// </param>
-        private void ConnectSocket(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data, IServer server)
+        private void ConnectSocket(IWebSocketConnection socket, WebSocketMessage<Payloads.Client.AuthMessage> data, IServer server)
         {
             server.ConnectedSockets.Add(socket, data.Payload.UserName);
 
-            var authMessage = new AuthMessage()
+            var authMessage = new Payloads.Server.AuthMessage()
                                   {
                                       UserName = data.Payload.UserName,
-                                      Status = AuthMessage.StatusCode.Success
+                                      Status = Payloads.Server.AuthMessage.StatusCode.Success
                                   };
             socket.Send(Helper.BuildMessage(authMessage));
 
-            var chatMessage = new ChatMessage()
+            var chatMessage = new Payloads.Server.ChatMessage()
                                   {
                                       UserName = data.Payload.UserName,
                                       Message = "has joined the chat!"
@@ -106,13 +105,13 @@ namespace WebSocketServer.Messages.Handlers
         /// <param name="server">
         /// The server.
         /// </param>
-        private void DisconnectSocket(IWebSocketConnection socket, WebSocketMessage<AuthMessage> data, IServer server)
+        private void DisconnectSocket(IWebSocketConnection socket, WebSocketMessage<Payloads.Client.AuthMessage> data, IServer server)
         {
-            var authMessage = new AuthMessage()
+            var authMessage = new Payloads.Server.AuthMessage()
                                   {
                                       UserName = data.Payload.UserName,
                                       Message = "Error: the user name <" + data.Payload.UserName + "> is already in use!",
-                                      Status = AuthMessage.StatusCode.Error
+                                      Status = Payloads.Server.AuthMessage.StatusCode.Error
                                   };
             socket.Send(Helper.BuildMessage(authMessage));
 

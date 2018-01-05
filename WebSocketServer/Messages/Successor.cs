@@ -65,7 +65,7 @@ namespace WebSocketServer.Messages
         public static void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             var messageType = Newtonsoft.Json.JsonConvert
-                .DeserializeObject<WebSocketMessage<Payloads.ChatMessage>>(webSocketMessage).Type;
+                .DeserializeObject<WebSocketMessage<Payloads.Client.UsersListMessage>>(webSocketMessage).Type;
 
             foreach (var handler in Handlers)
             {

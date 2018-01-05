@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServerTests
+namespace WebSocketServer.Tests
 {
     using System;
     using System.Linq;
     using System.Threading;
     using NUnit.Framework;
     using WebSocketServer;
-    using WebSocketServer.Messages.Payloads;
 
     /// <summary>
     /// The server test.
@@ -84,7 +83,7 @@ namespace WebSocketServerTests
         [Test, Order(1)]
         public void TestAuthorizationSuccess()
         {
-            MyClient.Send(Helper.Serialize(Helper.BuildMessage(new AuthMessage() { UserName = "admin2018" })));
+            MyClient.Send(Helper.Serialize(Helper.BuildMessage(new WebSocketServer.Messages.Payloads.Client.AuthMessage() { UserName = "admin2018" })));
 
             for (var i = 0; i < 50 && ResponseFromMyServer == null; ++i)
             {
@@ -93,10 +92,10 @@ namespace WebSocketServerTests
 
             var expected = Helper.Serialize(
                 Helper.BuildMessage(
-                    new AuthMessage()
+                    new WebSocketServer.Messages.Payloads.Server.AuthMessage()
                         {
                             UserName = "admin2018",
-                            Status = AuthMessage.StatusCode.Success
+                            Status = WebSocketServer.Messages.Payloads.Server.AuthMessage.StatusCode.Success
                         }));
             Log(expected);
             var possibleValues = new[] { PreviousResponseFromMyServer, ResponseFromMyServer };
@@ -117,7 +116,7 @@ namespace WebSocketServerTests
             anotherClient.Send(
                 Helper.Serialize(
                     Helper.BuildMessage(
-                        new AuthMessage()
+                        new WebSocketServer.Messages.Payloads.Client.AuthMessage()
                         {
                             UserName = "admin2018"
                         })));
@@ -129,11 +128,11 @@ namespace WebSocketServerTests
 
             var expected = Helper.Serialize(
                 Helper.BuildMessage(
-                    new AuthMessage()
+                    new WebSocketServer.Messages.Payloads.Server.AuthMessage()
                         {
                             Message = "Error: the user name <admin2018> is already in use!",
                             UserName = "admin2018",
-                            Status = AuthMessage.StatusCode.Error
+                            Status = WebSocketServer.Messages.Payloads.Server.AuthMessage.StatusCode.Error
                         }));
             Log(expected);
             Assert.AreEqual(expected, ResponseFromMyServer);

@@ -16,12 +16,12 @@ namespace WebSocketServer.Messages.Handlers
     public class UsersListHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => Payloads.UsersListMessage.Type;
+        protected override string Target => Payloads.Server.UsersListMessage.Type;
 
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
-            var usersListMessage = new Payloads.UsersListMessage()
+            var usersListMessage = new Payloads.Server.UsersListMessage()
             {
                 UsersList = server.ConnectedSockets.Values.ToArray()
             };

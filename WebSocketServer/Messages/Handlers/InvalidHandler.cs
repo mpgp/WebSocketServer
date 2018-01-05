@@ -20,7 +20,7 @@ namespace WebSocketServer.Messages.Handlers
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
-            var invalidMessage = new Payloads.InvalidMessage()
+            var invalidMessage = new Payloads.Server.InvalidMessage()
             {
                 Message = "Обнаружена ошибка. Предоставьте, пожалуйста, эту информацию разработчикам: "
                     + webSocketMessage

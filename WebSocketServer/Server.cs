@@ -12,9 +12,6 @@ namespace WebSocketServer
     using System;
     using System.Collections.Generic;
 
-    using Messages;
-    using Messages.Payloads;
-
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
@@ -79,7 +76,7 @@ namespace WebSocketServer
             WsServer.Start(socket =>
             {
                 socket.OnClose = () => OnClose(socket);
-                socket.OnMessage = webSocketMessage => Successor.Handle(socket, webSocketMessage, this);
+                socket.OnMessage = webSocketMessage => Messages.Successor.Handle(socket, webSocketMessage, this);
             });
 
             return this;
@@ -95,13 +92,13 @@ namespace WebSocketServer
         {
             if (ConnectedSockets.ContainsKey(socket))
             {
-                var chatMessage = new ChatMessage()
+                var chatMessage = new Messages.Payloads.Server.ChatMessage()
                 {
                     UserName = ConnectedSockets[socket],
                     Message = "has left from chat!"
                 };
 
-                Successor.ChatHandler.SendToAll(chatMessage, this);
+                Messages.Successor.ChatHandler.SendToAll(chatMessage, this);
                 ConnectedSockets.Remove(socket);
             }
         }

@@ -1,26 +1,26 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UsersListMessage.cs" company="mpgp">
+// <copyright file="InvalidMessage.cs" company="mpgp">
 //   Multiplayer Game Platform
 // </copyright>
 // <summary>
-//   Список пользователей онлайн.
+//   Сообщение об ошибке.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServer.Messages.Payloads
+namespace WebSocketServer.Messages.Payloads.Server
 {
     /// <inheritdoc />
-    public class UsersListMessage : BaseMessage
+    public class InvalidMessage : BaseMessage
     {
         /// <summary>
         /// Тип сообщения.
         /// </summary>
-        public const string Type = "USERS_LIST_MESSAGE";
+        public const string Type = "INVALID_MESSAGE";
 
         /// <summary>
-        /// Список пользователей онлайн.
+        /// Сообщение об ошибке.
         /// </summary>
-        public string[] UsersList { get; set; }
+        public string Message { get; set; }
 
         /// <inheritdoc />
         protected override string MessageType => Type;

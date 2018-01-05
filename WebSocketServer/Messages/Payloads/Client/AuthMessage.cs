@@ -1,31 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ChatMessage.cs" company="mpgp">
+// <copyright file="AuthMessage.cs" company="mpgp">
 //   Multiplayer Game Platform
 // </copyright>
 // <summary>
-//   Defines the ChatMessage type.
+//   Данные для авторизации.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServer.Messages.Payloads
+namespace WebSocketServer.Messages.Payloads.Client
 {
     /// <inheritdoc />
-    public class ChatMessage : BaseMessage
+    public partial class AuthMessage : BaseMessage
     {
         /// <summary>
-        /// The type.
+        /// Тип сообщения.
         /// </summary>
-        public const string Type = "CHAT_MESSAGE";
-
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the time.
-        /// </summary>
-        public long Time { get; set; } = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1)).TotalSeconds;
+        public const string Type = "AUTH_MESSAGE";
 
         /// <summary>
         /// Gets or sets the user name.

@@ -1,24 +1,24 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="InvalidMessage.cs" company="mpgp">
+// <copyright file="ChatMessage.cs" company="mpgp">
 //   Multiplayer Game Platform
 // </copyright>
 // <summary>
-//   Сообщение об ошибке.
+//   Defines the ChatMessage type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServer.Messages.Payloads
+namespace WebSocketServer.Messages.Payloads.Client
 {
     /// <inheritdoc />
-    public class InvalidMessage : BaseMessage
+    public class ChatMessage : BaseMessage
     {
         /// <summary>
-        /// Тип сообщения.
+        /// The type.
         /// </summary>
-        public const string Type = "INVALID_MESSAGE";
+        public const string Type = "CHAT_MESSAGE";
 
         /// <summary>
-        /// Сообщение об ошибке.
+        /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
 

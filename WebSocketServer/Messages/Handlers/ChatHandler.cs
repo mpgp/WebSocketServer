@@ -9,14 +9,13 @@
 
 namespace WebSocketServer.Messages.Handlers
 {
-    using Payloads;
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
     public class ChatHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => ChatMessage.Type;
+        protected override string Target => Payloads.Server.ChatMessage.Type;
 
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
@@ -24,8 +23,8 @@ namespace WebSocketServer.Messages.Handlers
             try
             {
                 var data =
-                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<ChatMessage>>(webSocketMessage);
-                var chatMessage = new ChatMessage()
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<Payloads.Client.ChatMessage>>(webSocketMessage);
+                var chatMessage = new Payloads.Server.ChatMessage()
                 {
                     UserName = server.ConnectedSockets[socket],
                     Message = data.Payload.Message
@@ -47,7 +46,7 @@ namespace WebSocketServer.Messages.Handlers
         /// <param name="server">
         /// The server.
         /// </param>
-        public void SendToAll(ChatMessage chatMessage, IServer server)
+        public void SendToAll(Payloads.Server.ChatMessage chatMessage, IServer server)
         {
             var message = Helper.BuildMessage(chatMessage);
             foreach (var client in server.ConnectedSockets)

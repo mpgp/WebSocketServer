@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace WebSocketServerTests
+namespace WebSocketServer.Tests
 {
     using System;
     using System.Linq;
