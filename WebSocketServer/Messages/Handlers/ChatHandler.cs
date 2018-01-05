@@ -15,7 +15,7 @@ namespace WebSocketServer.Messages.Handlers
     public class ChatHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => Payloads.Server.ChatMessage.Type;
+        protected override string Target => Payloads.Types.ChatMessage;
 
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)

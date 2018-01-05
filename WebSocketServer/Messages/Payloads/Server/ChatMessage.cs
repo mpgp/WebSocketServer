@@ -13,11 +13,6 @@ namespace WebSocketServer.Messages.Payloads.Server
     public class ChatMessage : BaseMessage
     {
         /// <summary>
-        /// The type.
-        /// </summary>
-        public const string Type = "CHAT_MESSAGE";
-
-        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
@@ -33,6 +28,6 @@ namespace WebSocketServer.Messages.Payloads.Server
         public string UserName { get; set; }
 
         /// <inheritdoc />
-        protected override string MessageType => Type;
+        protected override string MessageType => Types.ChatMessage;
     }
 }

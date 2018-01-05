@@ -56,6 +56,7 @@
     <Compile Include="Messages\Payloads\Client\UsersListMessage.cs" />
     <Compile Include="Messages\Payloads\Server\InvalidMessage.cs" />
     <Compile Include="Messages\Payloads\Server\UsersListMessage.cs" />
+    <Compile Include="Messages\Payloads\Types.cs" />
     <Compile Include="Messages\Successor.cs" />
     <Compile Include="Messages\Handlers\AuthHandler.cs" />
     <Compile Include="Messages\Handlers\BaseHandler.cs" />

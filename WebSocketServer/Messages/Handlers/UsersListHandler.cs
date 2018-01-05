@@ -16,7 +16,7 @@ namespace WebSocketServer.Messages.Handlers
     public class UsersListHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => Payloads.Server.UsersListMessage.Type;
+        protected override string Target => Payloads.Types.UsersListMessage;
 
         /// <inheritdoc />
         public override void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)

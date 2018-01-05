@@ -13,16 +13,11 @@ namespace WebSocketServer.Messages.Payloads.Server
     public class InvalidMessage : BaseMessage
     {
         /// <summary>
-        /// Тип сообщения.
-        /// </summary>
-        public const string Type = "INVALID_MESSAGE";
-
-        /// <summary>
         /// Сообщение об ошибке.
         /// </summary>
         public string Message { get; set; }
 
         /// <inheritdoc />
-        protected override string MessageType => Type;
+        protected override string MessageType => Types.InvalidMessage;
     }
 }

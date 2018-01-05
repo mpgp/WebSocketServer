@@ -13,11 +13,6 @@ namespace WebSocketServer.Messages.Payloads.Server
     public partial class AuthMessage : BaseMessage
     {
         /// <summary>
-        /// Тип сообщения.
-        /// </summary>
-        public const string Type = "AUTH_MESSAGE";
-
-        /// <summary>
         /// Текст сообщения об успешной или неудачной авторизации.
         /// </summary>
         public string Message { get; set; }
@@ -33,6 +28,6 @@ namespace WebSocketServer.Messages.Payloads.Server
         public string UserName { get; set; }
 
         /// <inheritdoc />
-        protected override string MessageType => Type;
+        protected override string MessageType => Types.AuthMessage;
     }
 }

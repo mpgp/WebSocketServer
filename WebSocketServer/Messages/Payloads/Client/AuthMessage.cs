@@ -10,19 +10,14 @@
 namespace WebSocketServer.Messages.Payloads.Client
 {
     /// <inheritdoc />
-    public partial class AuthMessage : BaseMessage
+    public class AuthMessage : BaseMessage
     {
-        /// <summary>
-        /// Тип сообщения.
-        /// </summary>
-        public const string Type = "AUTH_MESSAGE";
-
         /// <summary>
         /// Gets or sets the user name.
         /// </summary>
         public string UserName { get; set; }
 
         /// <inheritdoc />
-        protected override string MessageType => Type;
+        protected override string MessageType => Types.AuthMessage;
     }
 }

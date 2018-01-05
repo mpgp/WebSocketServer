@@ -15,7 +15,7 @@ namespace WebSocketServer.Messages.Handlers
     public class AuthHandler : BaseHandler
     {
         /// <inheritdoc />
-        protected override string Target => Payloads.Server.AuthMessage.Type;
+        protected override string Target => Payloads.Types.AuthMessage;
 
         /// <inheritdoc />
         public override bool CanHandle(IWebSocketConnection socket, string messageType, IServer server)
