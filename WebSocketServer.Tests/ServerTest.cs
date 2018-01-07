@@ -83,7 +83,7 @@ namespace WebSocketServer.Tests
         [Test, Order(1)]
         public void TestAuthorizationSuccess()
         {
-            MyClient.Send(Helper.Serialize(Helper.BuildMessage(new WebSocketServer.Messages.Payloads.Client.AuthMessage() { UserName = "admin2018" })));
+            MyClient.Send(Helper.Serialize(Helper.BuildMessage(new Messages.Payloads.Client.AuthMessage() { UserName = "admin2018" })));
 
             for (var i = 0; i < 50 && ResponseFromMyServer == null; ++i)
             {
@@ -92,10 +92,10 @@ namespace WebSocketServer.Tests
 
             var expected = Helper.Serialize(
                 Helper.BuildMessage(
-                    new WebSocketServer.Messages.Payloads.Server.AuthMessage()
+                    new Messages.Payloads.Server.AuthMessage()
                         {
                             UserName = "admin2018",
-                            Status = WebSocketServer.Messages.Payloads.Server.AuthMessage.StatusCode.Success
+                            Status = Messages.Payloads.Server.AuthMessage.StatusCode.Success
                         }));
             Log(expected);
             var possibleValues = new[] { PreviousResponseFromMyServer, ResponseFromMyServer };
@@ -116,7 +116,7 @@ namespace WebSocketServer.Tests
             anotherClient.Send(
                 Helper.Serialize(
                     Helper.BuildMessage(
-                        new WebSocketServer.Messages.Payloads.Client.AuthMessage()
+                        new Messages.Payloads.Client.AuthMessage()
                         {
                             UserName = "admin2018"
                         })));
@@ -128,11 +128,11 @@ namespace WebSocketServer.Tests
 
             var expected = Helper.Serialize(
                 Helper.BuildMessage(
-                    new WebSocketServer.Messages.Payloads.Server.AuthMessage()
+                    new Messages.Payloads.Server.AuthMessage()
                         {
                             Message = "Error: the user name <admin2018> is already in use!",
                             UserName = "admin2018",
-                            Status = WebSocketServer.Messages.Payloads.Server.AuthMessage.StatusCode.Error
+                            Status = Messages.Payloads.Server.AuthMessage.StatusCode.Error
                         }));
             Log(expected);
             Assert.AreEqual(expected, ResponseFromMyServer);

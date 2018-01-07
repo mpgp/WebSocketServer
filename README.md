@@ -87,7 +87,7 @@ ws.send(JSON.stringify({
 ```
 ### USERS_LIST_MESSAGE
 ```TypeScript
-interface ChatMessage {
+interface UsersListMessage {
     UsersList?: string[];
 }
 ```

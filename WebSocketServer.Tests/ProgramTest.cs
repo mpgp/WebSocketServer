@@ -37,7 +37,7 @@ namespace WebSocketServer.Tests
         [Test]
         public void StartServerLocalhostExpectArgumentException()
         {
-            var args = new [] { "localhost" };
+            var args = new[] { "localhost" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -48,7 +48,7 @@ namespace WebSocketServer.Tests
         [Test]
         public void StartServerLocalhost8118ExpectArgumentException()
         {
-            var args = new [] { "localhost", "8118" };
+            var args = new[] { "localhost", "8118" };
             var ex = Assert.Throws<ArgumentException>(() => { Program.StartServer(args); });
             Assert.That(ex.Message, Is.EqualTo("Invalid arguments. Usage: <hostname> <port> <protocol>"));
         }
@@ -59,7 +59,7 @@ namespace WebSocketServer.Tests
         [Test]
         public void StartServerLocalhost8118WsExpectNoThrows()
         {
-            var args = new [] { "localhost", "8118", "ws" };
+            var args = new[] { "localhost", "8118", "ws" };
             Assert.That(() => Program.StartServer(args), Throws.Nothing);
         }
 
@@ -69,7 +69,7 @@ namespace WebSocketServer.Tests
         [Test]
         public void StartServerLocalhostNaNWsExpectFormatException()
         {
-            var args = new [] { "localhost", "NaN", "ws" };
+            var args = new[] { "localhost", "NaN", "ws" };
             var ex = Assert.Throws<FormatException>(() => { Program.StartServer(args); });
             
             var possibleValues = new[]
