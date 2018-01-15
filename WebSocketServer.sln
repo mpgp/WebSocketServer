@@ -1,11 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketServer", "WebSocketServer\WebSocketServer.csproj", "{49D6C360-045A-48D5-82FF-32E9EA770D7D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketServer.Tests", "WebSocketServer.Tests\WebSocketServer.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketServer", "WebSocketServer\WebSocketServer.csproj", "{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{49D6C360-045A-48D5-82FF-32E9EA770D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49D6C360-045A-48D5-82FF-32E9EA770D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49D6C360-045A-48D5-82FF-32E9EA770D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49D6C360-045A-48D5-82FF-32E9EA770D7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2AB6CCE9-8F42-40CF-9CEE-98B3116CB774}
+		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
