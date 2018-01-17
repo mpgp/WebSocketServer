@@ -26,7 +26,7 @@ namespace WebSocketServer.Messages.Handlers
                     Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<Payloads.Client.ChatMessage>>(webSocketMessage);
                 var chatMessage = new Payloads.Server.ChatMessage()
                 {
-                    UserName = server.ConnectedSockets[socket],
+                    UserName = server.ConnectedSockets[socket].Login,
                     Message = data.Payload.Message
                 };
                 SendToAll(chatMessage, server);

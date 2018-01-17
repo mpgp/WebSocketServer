@@ -37,7 +37,7 @@ namespace WebSocketServer
         }
 
         /// <inheritdoc />
-        public Dictionary<IWebSocketConnection, string> ConnectedSockets { get; set; }
+        public Dictionary<IWebSocketConnection, Models.UserModel> ConnectedSockets { get; set; }
 
         /// <summary>
         /// Gets the hostname.
@@ -71,7 +71,7 @@ namespace WebSocketServer
         public IServer Start()
         {
             Fleck2.FleckLog.Level = Fleck2.LogLevel.Debug;
-            ConnectedSockets = new Dictionary<IWebSocketConnection, string>();
+            ConnectedSockets = new Dictionary<IWebSocketConnection, Models.UserModel>();
             WsServer = new Fleck2.WebSocketServer($"{Protocol}://{Hostname}:{Port}");
             WsServer.Start(socket =>
             {
@@ -94,7 +94,7 @@ namespace WebSocketServer
             {
                 var chatMessage = new Messages.Payloads.Server.ChatMessage()
                 {
-                    UserName = ConnectedSockets[socket],
+                    UserName = ConnectedSockets[socket].Login,
                     Message = "has left from chat!"
                 };
 

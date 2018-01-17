@@ -22,11 +22,6 @@ namespace WebSocketServer.Messages.Payloads.Server
         /// </summary>
         public StatusCode Status { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        public string UserName { get; set; }
-
         /// <inheritdoc />
         protected override string MessageType => Types.AuthMessage;
     }

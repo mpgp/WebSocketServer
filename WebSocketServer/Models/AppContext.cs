@@ -57,6 +57,11 @@ namespace WebSocketServer.Models
         /// </summary>
         public DbSet<UserModel> Users { get; set; }
 
+        /// <summary>
+        /// Gets or sets the users tokens.
+        /// </summary>
+        public DbSet<UserTokenModel> UsersTokens { get; set; }
+
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
