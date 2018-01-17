@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketServer", "WebSocketServer\WebSocketServer.csproj", "{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketServer.Tests", "WebSocketServer.Tests\WebSocketServer.Tests.csproj", "{F12765AC-B5B8-4565-BD43-B4E7EADB4852}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A47D12D2-82C5-431C-9D8D-40EC03C5C17B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12765AC-B5B8-4565-BD43-B4E7EADB4852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12765AC-B5B8-4565-BD43-B4E7EADB4852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12765AC-B5B8-4565-BD43-B4E7EADB4852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12765AC-B5B8-4565-BD43-B4E7EADB4852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
