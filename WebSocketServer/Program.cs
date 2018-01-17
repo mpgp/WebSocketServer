@@ -9,8 +9,6 @@
 
 namespace WebSocketServer
 {
-    using System.Linq;
-
     /// <summary>
     /// The program.
     /// </summary>

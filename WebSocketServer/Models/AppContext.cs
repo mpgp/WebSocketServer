@@ -60,7 +60,7 @@ namespace WebSocketServer.Models
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;User Id=SA;Password=123456;Database=api_dev");
+            optionsBuilder.UseSqlServer(Config.Get("ConnectionString"));
         }
     }
 }
