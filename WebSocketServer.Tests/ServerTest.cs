@@ -149,6 +149,7 @@ namespace WebSocketServer.Tests
         /// </param>
         private void OnReceiveMessageFromServer(object sender, WebSocket4Net.MessageReceivedEventArgs args)
         {
+            Log("SQA: + " + args.Message);
             PreviousResponseFromMyServer = ResponseFromMyServer;
             ResponseFromMyServer = args.Message;
         }
