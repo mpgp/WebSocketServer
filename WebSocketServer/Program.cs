@@ -7,10 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Linq;
-
 namespace WebSocketServer
 {
+    using System.Linq;
+
     /// <summary>
     /// The program.
     /// </summary>
@@ -24,17 +24,6 @@ namespace WebSocketServer
         /// </param>
         public static void Main(string[] args)
         {
-            using (Models.AppContext db = new Models.AppContext())
-            {
-                // получаем объекты из бд и выводим на консоль
-                var users = db.Users.ToList();
-                System.Console.WriteLine("Список объектов:");
-                foreach (var u in users)
-                {
-                    System.Console.WriteLine($"{u.Id}.{u.Login}");
-                }
-            }
-            System.Console.ReadLine();
 #if DEBUG
             args = args.Length == 3 ? args : new[] { "localhost", "8181", "ws" };
 #endif
