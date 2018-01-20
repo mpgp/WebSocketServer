@@ -19,7 +19,7 @@ namespace WebSocketServer
         /// <summary>
         /// Gets or sets the connected sockets.
         /// </summary>
-        System.Collections.Generic.Dictionary<IWebSocketConnection, string> ConnectedSockets { get; set; }
+        System.Collections.Generic.Dictionary<IWebSocketConnection, Models.UserModel> ConnectedSockets { get; set; }
 
         /// <summary>
         /// The listen messages.

@@ -13,9 +13,9 @@ namespace WebSocketServer.Messages.Payloads.Client
     public class AuthMessage : BaseMessage
     {
         /// <summary>
-        /// Gets or sets the user name.
+        /// Gets or sets the auth token.
         /// </summary>
-        public string UserName { get; set; }
+        public string AuthToken { get; set; }
 
         /// <inheritdoc />
         protected override string MessageType => Types.AuthMessage;

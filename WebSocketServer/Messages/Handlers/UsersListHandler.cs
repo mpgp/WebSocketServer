@@ -23,7 +23,7 @@ namespace WebSocketServer.Messages.Handlers
         {
             var usersListMessage = new Payloads.Server.UsersListMessage()
             {
-                UsersList = server.ConnectedSockets.Values.ToArray()
+                UsersList = server.ConnectedSockets.Values.Select(user => user.Login).ToArray()
             };
             socket.Send(Helper.BuildMessage(usersListMessage));
         }
