@@ -37,16 +37,14 @@ enum AuthStatusCode { ERROR, SUCCESS }
 ws.send(JSON.stringify({
 	Type: "AUTH_MESSAGE",
 	Payload: {
-		UserName: "admin2018"
+		AuthToken: "0d788151ccfb3c0"
 	}
 }));
 // [success] server -> client
 {
 	Type: "AUTH_MESSAGE",
 	Payload: {
-		Message: null,
-		Status: 1,
-		UserName: "admin2018"
+		Status: 1
 	}
 }
 // [error] server -> client
@@ -54,8 +52,7 @@ ws.send(JSON.stringify({
 	Type: "AUTH_MESSAGE",
 	Payload: {
 		Message: "Error: the user name <admin2018> is already in use!",
-		Status: 0,
-		UserName: "admin2018"
+		Status: 0
 	}
 }
 ```
