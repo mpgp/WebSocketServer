@@ -63,13 +63,7 @@ namespace WebSocketServer.Messages.Handlers
                     }
                     else
                     {
-                        var authMessage = new Payloads.Server.AuthMessage()
-                                              {
-                                                  Message =
-                                                      "Error: you already connected to server!",
-                                                  Status = Payloads.Server.AuthMessage
-                                                      .StatusCode.Error
-                                              };
+                        var authMessage = new Payloads.Server.AuthMessage("ERROR.ALREADY_CONNECTED");
                         socket.Send(Helper.BuildMessage(authMessage));
                         DisconnectSocket(socket, server);
                     }
@@ -101,10 +95,7 @@ namespace WebSocketServer.Messages.Handlers
         {
             server.ConnectedSockets.Add(socket, userData);
 
-            var authMessage = new Payloads.Server.AuthMessage()
-                                  {
-                                      Status = Payloads.Server.AuthMessage.StatusCode.Success
-                                  };
+            var authMessage = new Payloads.Server.AuthMessage("SUCCESS");
             socket.Send(Helper.BuildMessage(authMessage));
 
             var chatMessage = new Payloads.Server.ChatMessage()
