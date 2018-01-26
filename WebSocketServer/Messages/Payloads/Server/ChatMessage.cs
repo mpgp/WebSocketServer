@@ -13,6 +13,11 @@ namespace WebSocketServer.Messages.Payloads.Server
     public class ChatMessage : BaseMessage
     {
         /// <summary>
+        /// Gets or sets the login.
+        /// </summary>
+        public string Login { get; set; }
+        
+        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
@@ -21,11 +26,6 @@ namespace WebSocketServer.Messages.Payloads.Server
         /// Gets or sets the time.
         /// </summary>
         public long Time { get; set; } = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1)).TotalSeconds;
-
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        public string UserName { get; set; }
 
         /// <inheritdoc />
         protected override string MessageType => Types.ChatMessage;

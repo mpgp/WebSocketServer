@@ -10,9 +10,7 @@
 namespace WebSocketServer.Messages.Handlers
 {
     using System.Linq;
-
-    using WebSocketServer.Models;
-
+    using Models;
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
     /// <inheritdoc />
@@ -52,7 +50,7 @@ namespace WebSocketServer.Messages.Handlers
                 var data =
                     Newtonsoft.Json.JsonConvert.DeserializeObject<WebSocketMessage<Payloads.Client.AuthMessage>>(webSocketMessage);
 
-                var tokenData = AppContext.Instance.UsersTokens.FirstOrDefault(userToken => data.Payload.AuthToken == userToken.Token);
+                var tokenData = AppContext.Instance.UsersTokens.FirstOrDefault(userToken => data.Payload.Token == userToken.Token);
                 
                 if (tokenData != null)
                 {
@@ -100,7 +98,7 @@ namespace WebSocketServer.Messages.Handlers
 
             var chatMessage = new Payloads.Server.ChatMessage()
                                   {
-                                      UserName = server.ConnectedSockets[socket].Login,
+                                      Login = server.ConnectedSockets[socket].Login,
                                       Message = "has joined the chat!"
                                   };
             Successor.ChatHandler.SendToAll(chatMessage, server);

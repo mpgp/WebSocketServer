@@ -94,7 +94,7 @@ namespace WebSocketServer
             {
                 var chatMessage = new Messages.Payloads.Server.ChatMessage()
                 {
-                    UserName = ConnectedSockets[socket].Login,
+                    Login = ConnectedSockets[socket].Login,
                     Message = "has left from chat!"
                 };
 
