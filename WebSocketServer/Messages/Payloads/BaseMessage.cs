@@ -12,7 +12,7 @@ namespace WebSocketServer.Messages.Payloads
     /// <summary>
     /// The base message.
     /// </summary>
-    public abstract class BaseMessage
+    public class BaseMessage
     {
         /// <summary>
         /// Gets the message type.

@@ -61,13 +61,21 @@ namespace WebSocketServer.Messages.Handlers
                     }
                     else
                     {
-                        var authMessage = new Payloads.Server.AuthMessage("ERROR.ALREADY_CONNECTED");
+                        var authMessage = new Payloads.Server.AuthMessage()
+                        {
+                            Message = "ERROR.ALREADY_CONNECTED"
+                        };
                         socket.Send(Helper.BuildMessage(authMessage));
                         DisconnectSocket(socket, server);
                     }
                 }
                 else
                 {
+                    var authMessage = new Payloads.Server.AuthMessage()
+                    {
+                        Message = "ERROR.NOT_FOUND"
+                    };
+                    socket.Send(Helper.BuildMessage(authMessage));
                     DisconnectSocket(socket, server);
                 }
             }
@@ -93,7 +101,11 @@ namespace WebSocketServer.Messages.Handlers
         {
             server.ConnectedSockets.Add(socket, userData);
 
-            var authMessage = new Payloads.Server.AuthMessage("SUCCESS");
+            var authMessage = new Payloads.Server.AuthMessage()
+            {
+                Message = "SUCCESS",
+                UsersList = server.ConnectedSockets.Values.Select(user => user.Login).ToArray()
+            };
             socket.Send(Helper.BuildMessage(authMessage));
 
             var chatMessage = new Payloads.Server.ChatMessage()

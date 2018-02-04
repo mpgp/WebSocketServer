@@ -28,7 +28,6 @@ namespace WebSocketServer.Messages
                            {
                                // Сортировать желательно по частоте применимости
                                ChatHandler,
-                               new UsersListHandler(),
                                new AuthHandler(),
                            };
 
@@ -65,7 +64,7 @@ namespace WebSocketServer.Messages
         public static void Handle(IWebSocketConnection socket, string webSocketMessage, IServer server)
         {
             var messageType = Newtonsoft.Json.JsonConvert
-                .DeserializeObject<WebSocketMessage<Payloads.Client.UsersListMessage>>(webSocketMessage).Type;
+                .DeserializeObject<WebSocketMessage<Payloads.BaseMessage>>(webSocketMessage).Type;
 
             foreach (var handler in Handlers)
             {
