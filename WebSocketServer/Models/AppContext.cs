@@ -7,8 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-#define USE_POSTGRES
-
 namespace WebSocketServer.Models
 {
     using Microsoft.EntityFrameworkCore;
@@ -67,7 +65,7 @@ namespace WebSocketServer.Models
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if USE_POSTGRES
+#if !DEBUG
             optionsBuilder.UseNpgsql(Config.Get("ConnectionString"));
 #else
             optionsBuilder.UseSqlServer(Config.Get("ConnectionString"));
