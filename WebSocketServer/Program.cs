@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Linq;
+
 namespace WebSocketServer
 {
     /// <summary>
@@ -22,9 +24,15 @@ namespace WebSocketServer
         /// </param>
         public static void Main(string[] args)
         {
-#if DEBUG
-            args = args.Length == 3 ? args : new[] { "localhost", "8181", "ws" };
-#endif
+            args = args.Length == 3
+                ? args
+                : new[]
+                {
+                    Config.Get("Server:Host"),
+                    Config.Get("Server:Port"),
+                    Config.Get("Server:Protocol")
+                };
+
             try
             {
                 StartServer(args).ListenMessages();
