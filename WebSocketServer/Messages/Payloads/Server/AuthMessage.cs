@@ -12,10 +12,17 @@ namespace WebSocketServer.Messages.Payloads.Server
     /// <inheritdoc />
     public class AuthMessage : BaseMessage
     {
+        /// <inheritdoc />
         public AuthMessage()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthMessage"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         public AuthMessage(string message)
         {
             Message = message;
