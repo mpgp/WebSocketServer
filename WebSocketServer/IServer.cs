@@ -27,6 +27,14 @@ namespace WebSocketServer
         void ListenMessages();
 
         /// <summary>
+        /// The send to all.
+        /// </summary>
+        /// <param name="message">
+        /// The chat message.
+        /// </param>
+        void SendToAll(Messages.Payloads.BaseMessage message);
+
+        /// <summary>
         /// The start.
         /// </summary>
         /// <returns>

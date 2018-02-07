@@ -23,21 +23,15 @@ namespace WebSocketServer.Messages
         /// </summary>
         static Successor()
         {
-            ChatHandler = new ChatHandler();
             Handlers = new List<BaseHandler>()
                            {
                                // Сортировать желательно по частоте применимости
-                               ChatHandler,
+                               new ChatHandler(),
                                new AuthHandler(),
                            };
 
             InvalidHandler = new InvalidHandler();
         }
-
-        /// <summary>
-        /// Gets the chat handler.
-        /// </summary>
-        public static ChatHandler ChatHandler { get; }
 
         /// <summary>
         /// Gets the invalid handler.

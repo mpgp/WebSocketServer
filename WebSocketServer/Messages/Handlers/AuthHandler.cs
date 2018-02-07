@@ -99,21 +99,21 @@ namespace WebSocketServer.Messages.Handlers
         /// </param>
         private void ConnectSocket(IWebSocketConnection socket, UserModel userData, IServer server)
         {
-            server.ConnectedSockets.Add(socket, userData);
-
             var authMessage = new Payloads.Server.AuthMessage()
             {
                 Message = "SUCCESS",
                 UsersList = server.ConnectedSockets.Values.Select(user => user.Login).ToArray()
             };
+            
             socket.Send(Helper.BuildMessage(authMessage));
+            server.ConnectedSockets.Add(socket, userData);
 
-            var chatMessage = new Payloads.Server.ChatMessage()
+            var userConnectionMessage = new Payloads.Server.UserConnectionMessage()
                                   {
                                       Login = server.ConnectedSockets[socket].Login,
-                                      Message = "has joined the chat!"
+                                      Status = "CONNECT"
                                   };
-            Successor.ChatHandler.SendToAll(chatMessage, server);
+            server.SendToAll(userConnectionMessage);
         }
 
         /// <summary>

@@ -66,6 +66,16 @@ namespace WebSocketServer
             {
             }
         }
+        
+        /// <inheritdoc />
+        public void SendToAll(Messages.Payloads.BaseMessage message)
+        {
+            var msg = Helper.BuildMessage(message);
+            foreach (var client in ConnectedSockets)
+            {
+                client.Key.Send(msg);
+            }
+        }
 
         /// <inheritdoc />
         public IServer Start()
@@ -92,13 +102,12 @@ namespace WebSocketServer
         {
             if (ConnectedSockets.ContainsKey(socket))
             {
-                var chatMessage = new Messages.Payloads.Server.ChatMessage()
+                var userConnectionMessage = new Messages.Payloads.Server.UserConnectionMessage()
                 {
                     Login = ConnectedSockets[socket].Login,
-                    Message = "has left from chat!"
+                    Status = "DISCONNECT"
                 };
-
-                Messages.Successor.ChatHandler.SendToAll(chatMessage, this);
+                SendToAll(userConnectionMessage);
                 ConnectedSockets.Remove(socket);
             }
         }

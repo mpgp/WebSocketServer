@@ -28,5 +28,10 @@ namespace WebSocketServer.Messages.Payloads
         /// The invalid message.
         /// </summary>
         public const string InvalidMessage = "INVALID_MESSAGE";
+        
+        /// <summary>
+        /// The user connection message.
+        /// </summary>
+        public const string UserConnectionMessage = "USER_CONNECTION_MESSAGE";
     }
 }
