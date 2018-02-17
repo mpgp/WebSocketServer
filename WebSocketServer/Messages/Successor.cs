@@ -26,6 +26,7 @@ namespace WebSocketServer.Messages
             Handlers = new List<BaseHandler>()
                            {
                                // Сортировать желательно по частоте применимости
+                               new DialogHandler(),
                                new ChatHandler(),
                                new AuthHandler(),
                            };

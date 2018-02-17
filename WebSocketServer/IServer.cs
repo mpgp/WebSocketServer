@@ -30,9 +30,20 @@ namespace WebSocketServer
         /// The send to all.
         /// </summary>
         /// <param name="message">
-        /// The chat message.
+        /// The message.
         /// </param>
         void SendToAll(Messages.Payloads.BaseMessage message);
+
+        /// <summary>
+        /// The send to user.
+        /// </summary>
+        /// <param name="receiver">
+        /// The receiver.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        void SendToUser(string receiver, Messages.Payloads.BaseMessage message);
 
         /// <summary>
         /// The start.

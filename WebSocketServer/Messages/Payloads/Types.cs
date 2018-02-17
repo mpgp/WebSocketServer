@@ -25,6 +25,11 @@ namespace WebSocketServer.Messages.Payloads
         public const string ChatMessage = "CHAT_MESSAGE";
 
         /// <summary>
+        /// The dialog message.
+        /// </summary>
+        public const string DialogMessage = "DIALOG_MESSAGE";
+
+        /// <summary>
         /// The invalid message.
         /// </summary>
         public const string InvalidMessage = "INVALID_MESSAGE";

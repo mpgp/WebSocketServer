@@ -65,11 +65,17 @@ namespace WebSocketServer.Models
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if !DEBUG
-            optionsBuilder.UseNpgsql(Config.Get("ConnectionString"));
-#else
-            optionsBuilder.UseSqlServer(Config.Get("ConnectionString"));
-#endif
+            var connectionType = Config.Get("ConnectionType");
+            var connectionString = Config.Get($"ConnectionStrings:{connectionType}");
+
+            if (connectionType == "psql")
+            {
+                optionsBuilder.UseNpgsql(connectionString);
+            }
+            else
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
     }
 }

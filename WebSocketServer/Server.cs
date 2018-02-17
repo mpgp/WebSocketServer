@@ -11,6 +11,7 @@ namespace WebSocketServer
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using IWebSocketConnection = Fleck2.Interfaces.IWebSocketConnection;
 
@@ -71,10 +72,19 @@ namespace WebSocketServer
         public void SendToAll(Messages.Payloads.BaseMessage message)
         {
             var msg = Helper.BuildMessage(message);
+            
             foreach (var client in ConnectedSockets)
             {
                 client.Key.Send(msg);
             }
+        }
+                
+        /// <inheritdoc />
+        public void SendToUser(string receiver, Messages.Payloads.BaseMessage message)
+        {
+            var msg = Helper.BuildMessage(message);
+            var user = ConnectedSockets.FirstOrDefault(socket => socket.Value.Login == receiver).Key;
+            user?.Send(msg);
         }
 
         /// <inheritdoc />
