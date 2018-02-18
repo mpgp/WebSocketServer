@@ -99,6 +99,7 @@ namespace WebSocketServer.Messages.Handlers
         /// </param>
         private void ConnectSocket(IWebSocketConnection socket, UserModel userData, IServer server)
         {
+            server.ConnectedSockets.Add(socket, userData);
             var authMessage = new Payloads.Server.AuthMessage()
             {
                 Message = "SUCCESS",
@@ -106,14 +107,13 @@ namespace WebSocketServer.Messages.Handlers
             };
             
             socket.Send(Helper.BuildMessage(authMessage));
-            server.ConnectedSockets.Add(socket, userData);
 
             var userConnectionMessage = new Payloads.Server.UserConnectionMessage()
                                   {
                                       Login = server.ConnectedSockets[socket].Login,
                                       Status = "CONNECT"
                                   };
-            server.SendToAll(userConnectionMessage);
+            server.SendToAllExcludeOne(userConnectionMessage, exclude: socket);
         }
 
         /// <summary>

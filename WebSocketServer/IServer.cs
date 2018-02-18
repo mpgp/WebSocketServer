@@ -35,6 +35,17 @@ namespace WebSocketServer
         void SendToAll(Messages.Payloads.BaseMessage message);
 
         /// <summary>
+        /// The send to all.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="exclude">
+        /// The exclude.
+        /// </param>
+        void SendToAllExcludeOne(Messages.Payloads.BaseMessage message, IWebSocketConnection exclude);
+
+        /// <summary>
         /// The send to user.
         /// </summary>
         /// <param name="receiver">

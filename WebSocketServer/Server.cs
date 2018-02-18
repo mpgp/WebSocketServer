@@ -78,6 +78,18 @@ namespace WebSocketServer
                 client.Key.Send(msg);
             }
         }
+        
+        /// <inheritdoc />
+        public void SendToAllExcludeOne(Messages.Payloads.BaseMessage message, IWebSocketConnection exclude)
+        {
+            var msg = Helper.BuildMessage(message);
+            var filteredSockets = ConnectedSockets.Where(client => client.Key != exclude);
+            
+            foreach (var client in filteredSockets)
+            {
+                client.Key.Send(msg);
+            }
+        }
                 
         /// <inheritdoc />
         public void SendToUser(string receiver, Messages.Payloads.BaseMessage message)
