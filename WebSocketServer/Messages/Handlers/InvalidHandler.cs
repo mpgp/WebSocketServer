@@ -25,7 +25,7 @@ namespace WebSocketServer.Messages.Handlers
                 Message = "Обнаружена ошибка. Предоставьте, пожалуйста, эту информацию разработчикам: "
                     + webSocketMessage
             };
-            socket.Send(Helper.BuildMessage(invalidMessage));
+            socket.Send(invalidMessage);
         }
     }
 }

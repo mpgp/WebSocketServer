@@ -65,7 +65,7 @@ namespace WebSocketServer.Messages.Handlers
                         {
                             Message = "ERROR.ALREADY_CONNECTED"
                         };
-                        socket.Send(Helper.BuildMessage(authMessage));
+                        socket.Send(authMessage);
                         DisconnectSocket(socket, server);
                     }
                 }
@@ -75,7 +75,7 @@ namespace WebSocketServer.Messages.Handlers
                     {
                         Message = "ERROR.NOT_FOUND"
                     };
-                    socket.Send(Helper.BuildMessage(authMessage));
+                    socket.Send(authMessage);
                     DisconnectSocket(socket, server);
                 }
             }
@@ -106,7 +106,7 @@ namespace WebSocketServer.Messages.Handlers
                 UsersList = server.ConnectedSockets.Values.Select(user => user.Login).ToArray()
             };
             
-            socket.Send(Helper.BuildMessage(authMessage));
+            socket.Send(authMessage);
 
             var userConnectionMessage = new Payloads.Server.UserConnectionMessage()
                                   {

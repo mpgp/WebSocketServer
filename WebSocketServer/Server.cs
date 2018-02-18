@@ -94,9 +94,8 @@ namespace WebSocketServer
         /// <inheritdoc />
         public void SendToUser(string receiver, Messages.Payloads.BaseMessage message)
         {
-            var msg = Helper.BuildMessage(message);
             var user = ConnectedSockets.FirstOrDefault(socket => socket.Value.Login == receiver).Key;
-            user?.Send(msg);
+            user?.Send(message);
         }
 
         /// <inheritdoc />

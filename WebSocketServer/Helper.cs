@@ -47,6 +47,21 @@ namespace WebSocketServer
         /// The message.
         /// </param>
         /// <typeparam name="T">Any type</typeparam>
+        public static void Send<T>(this IWebSocketConnection socket, T message) where T : BaseMessage
+        {
+            socket.Send(BuildMessage(message));
+        }
+
+        /// <summary>
+        /// The send.
+        /// </summary>
+        /// <param name="socket">
+        /// The socket.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <typeparam name="T">Any type</typeparam>
         public static void Send<T>(this IWebSocketConnection socket, WebSocketMessage<T> message) where T : BaseMessage
         {
             socket.Send(Serialize(message));

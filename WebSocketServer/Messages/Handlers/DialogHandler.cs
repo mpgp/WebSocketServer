@@ -35,7 +35,7 @@ namespace WebSocketServer.Messages.Handlers
                 
                 if (dialogMessage.Login != dialogMessage.Receiver)
                 {
-                    socket.Send(Helper.BuildMessage(dialogMessage));
+                    socket.Send(dialogMessage);
                 }
             }
             catch (System.Exception e)
